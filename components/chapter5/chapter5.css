@@ -1,0 +1,57 @@
+/* =========================================================
+   第五章 · 小金鱼的时间（在第一章书页样式之上的补充，限定 .c5-root）
+   ========================================================= */
+.c5-root .c5-capt{position:absolute;left:0;right:0;top:91.2%;z-index:2;pointer-events:none;text-align:center;
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;font-size:2.8cqw;letter-spacing:.22em;color:rgba(43,29,18,.72);line-height:1}
+.c5-root .c5-hit{fill:transparent;pointer-events:all;touch-action:none}
+.c5-root .c5-ns{cursor:ns-resize}
+.c5-root .c5-tap{cursor:pointer}
+.c5-root.c5-dragging,.c5-root.c5-dragging *{cursor:grabbing!important}
+.c5-root .c5-arrows{opacity:0;pointer-events:none}
+.c5-root.c5-lightme #c5-arCandle{animation:c5pulse 1.5s ease-in-out infinite}
+@keyframes c5pulse{0%,100%{opacity:0}50%{opacity:.95}}
+.c5-root #c5-flame path{transform-box:fill-box;transform-origin:50% 100%;animation:c5flick .35s ease-in-out infinite alternate}
+@keyframes c5flick{from{transform:scale(1,1)}to{transform:scale(.88,1.1)}}
+.c5-root .c5-ghost{transition:opacity .25s}
+.c5-root .c5-done{opacity:0}
+.c5-root.c5-cast .c5-done{animation:c5pop .9s ease-out forwards}
+@keyframes c5pop{0%{opacity:0;transform:translateY(4px)}60%{opacity:1}100%{opacity:1;transform:none}}
+
+/* 底部：第几天 + 昨天 / 今天的时间条 */
+.c5-root .c5-bottom{align-items:center;gap:12px}
+.c5-root .c5-day{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px}
+.c5-root .c5-dnum{font-size:13px;letter-spacing:.14em;color:var(--ink)}
+.c5-root .c5-forget{font-family:inherit;font-size:11px;letter-spacing:.1em;background:none;border:1px solid rgba(43,29,18,.4);padding:2px 7px;cursor:pointer;color:rgba(43,29,18,.8);transition:all .2s}
+.c5-root .c5-forget:hover:not(:disabled){background:var(--ink);color:var(--cre)}
+.c5-root .c5-forget:disabled{opacity:.3;cursor:default}
+.c5-root .c5-tl{flex:1;max-width:420px;display:flex;flex-direction:column;gap:3px;--p:0}
+.c5-root .c5-row{display:flex;align-items:center;gap:6px}
+.c5-root .c5-row em{flex:none;font-style:normal;font-size:11px;font-weight:700;width:2.4em;color:rgba(43,29,18,.5);transition:color .3s}
+.c5-root .c5-row.on em{color:#7a2416}
+.c5-root .c5-track{position:relative;flex:1;height:10px;border:1px dashed rgba(43,29,18,.3);background:rgba(255,250,235,.25)}
+.c5-root .c5-track span{position:absolute;left:0;right:0}
+.c5-root .c5-track .y{top:1px;bottom:1px}
+.c5-root .c5-track .n{bottom:-1px;height:3px}
+.c5-root .c5-track i{position:absolute;top:0;bottom:0;border-radius:1px}
+.c5-root .c5-track .y i{background:rgba(122,74,42,.5)}
+.c5-root .c5-track .n i{background:#d79a2a}
+.c5-root .c5-track::after{content:"";position:absolute;top:-3px;bottom:-3px;left:calc(var(--p) * 100%);width:1.5px;background:#8a2a1c;opacity:0;transition:opacity .3s}
+.c5-root.c5-daytime .c5-track::after{opacity:1}
+
+/* 最后一页 */
+.c5-root .c5-sheet{justify-content:center}
+.c5-root .c5-pair{width:34cqw;margin:3cqw auto 0;opacity:0;animation:c5line 1.2s .1s ease forwards}
+.c5-root .c5-poem{margin-top:3cqw}
+.c5-root .c5-poem p{font-size:max(15px,4.8cqw);font-weight:700;letter-spacing:.18em;line-height:1.85;color:#1e140b;opacity:0;animation:c5line 1.4s ease forwards}
+.c5-root .c5-poem p:nth-child(3){color:#7a2e1e}
+@keyframes c5line{0%{opacity:0;filter:blur(6px);transform:translateY(6px)}100%{opacity:1;filter:none;transform:none}}
+.c5-root .c5-quote{margin-top:4cqw;font-size:max(13px,3.8cqw);line-height:1.7;color:rgba(43,29,18,.82);opacity:0;animation:c5line 1.4s 4.2s ease forwards}
+.c5-root .c5-sig{margin-top:1.6cqw;font-size:max(11px,3cqw);font-style:italic;color:rgba(43,29,18,.6);opacity:0;animation:c5line 1.4s 4.8s ease forwards}
+
+@media (max-width:767px){
+  .c5-root .c5-bottom{gap:8px}
+  .c5-root .c5-dnum{font-size:12px}
+  .c5-root .c5-forget{font-size:10px;padding:2px 5px}
+  .c5-root .c5-row em{font-size:10px}
+  .c5-root .c5-track{height:9px}
+}

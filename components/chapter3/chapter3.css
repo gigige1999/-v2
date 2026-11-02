@@ -1,0 +1,68 @@
+/* =========================================================
+   第三章 · 雨中的羊皮卷（在第一章书页样式之上的补充，限定 .c3-root）
+   ========================================================= */
+.c3-root .c3-cap{position:absolute;left:0;right:0;top:91.2%;z-index:2;pointer-events:none;text-align:center;
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;font-size:2.8cqw;letter-spacing:.22em;color:rgba(43,29,18,.72);line-height:1}
+.c3-root .c3-hz{fill:transparent;pointer-events:all;cursor:pointer}
+.c3-root .c3-hit{fill:transparent;pointer-events:all;cursor:grab}
+.c3-root.c3-dragging,.c3-root.c3-dragging *{cursor:grabbing!important}
+.c3-root .c3-plank{transition:filter .2s}
+.c3-root .c3-plank:hover{filter:drop-shadow(0 0 3px rgba(255,240,200,.9))}
+.c3-root .c3-grip{opacity:0;pointer-events:none}
+.c3-root.c3-grabme .c3-grip{animation:c3grip 1.6s ease-in-out infinite}
+@keyframes c3grip{0%,100%{opacity:0}50%{opacity:.95}}
+
+/* 屋顶裂缝上慢慢鼓起的水珠 */
+.c3-root .c3-bead{transform-box:fill-box;transform-origin:50% 0;animation:c3bead .15s ease-in infinite}
+@keyframes c3bead{0%{transform:scale(.5)}100%{transform:scale(1.1,1.25)}}
+.c3-root.c3-sunny .c3-bead{display:none}
+
+/* 窗外的雨、灌进来的风 */
+.c3-root .c3-rain{animation:c3rain .5s linear infinite}
+@keyframes c3rain{from{transform:translate(4px,-12px)}to{transform:translate(-4px,12px)}}
+.c3-root.c3-sunny .c3-rain{display:none}
+.c3-root .c3-wind path{animation:c3wind 1.1s linear infinite}
+.c3-root .c3-wind path:nth-child(2){animation-duration:.8s}
+@keyframes c3wind{to{stroke-dashoffset:-72}}
+.c3-root .c3-spray{animation:c3spray .6s linear infinite}
+@keyframes c3spray{from{transform:translateX(0);opacity:.9}to{transform:translateX(26px);opacity:0}}
+.c3-root.c3-sunny .c3-wind,.c3-root.c3-sunny .c3-spray{display:none}
+
+/* 蜡烛：风一吹就倒向右边 */
+.c3-root .c3-flame{transform-box:fill-box;transform-origin:50% 100%;animation:c3flick 1.3s ease-in-out infinite alternate}
+@keyframes c3flick{0%{transform:scale(1,1) rotate(-2deg)}50%{transform:scale(.92,1.08) rotate(2deg)}100%{transform:scale(1.04,.94) rotate(-1deg)}}
+.c3-root.c3-windy .c3-flame{animation:c3gust .35s ease-in-out infinite alternate}
+@keyframes c3gust{from{transform:rotate(38deg) scale(.85,1.05)}to{transform:rotate(52deg) scale(.7,.9)}}
+.c3-root.c3-windy .c3-candleGlow{opacity:.55}
+.c3-root .c3-mold{transition:opacity .35s ease,transform .35s ease}
+.c3-root .c3-text{transition:opacity .35s ease}
+.c3-root .c3-ring{transform-box:fill-box;transform-origin:center}
+.c3-root #c3-wetHair{transition:opacity 2s}
+
+/* 底部：誊写条（四行预言） */
+.c3-root .c3-bottom{align-items:center}
+.c3-root .c3-strip{display:flex;gap:6px;flex:1;max-width:440px}
+.c3-root .c3-cell{position:relative;flex:1;height:44px;display:grid;place-items:center;overflow:hidden;
+  border:1px dashed rgba(43,29,18,.32);border-radius:2px;background:rgba(255,250,235,.25)}
+.c3-root .c3-cell i{position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(95,128,125,.55);transition:width .3s}
+.c3-root .c3-cell span{position:relative;font-size:12.5px;line-height:1.35;font-weight:700;color:var(--ink);padding:0 2px;text-align:center;letter-spacing:.02em;white-space:nowrap}
+.c3-root .c3-cell::before{content:"· · ·";position:absolute;color:rgba(43,29,18,.3);letter-spacing:.2em}
+.c3-root .c3-cell.on{border-style:solid;border-color:rgba(43,29,18,.5);background:var(--cre);box-shadow:0 2px 5px rgba(60,40,20,.15)}
+.c3-root .c3-cell.on::before{display:none}
+.c3-root .c3-cell.on i{opacity:0}
+.c3-root .c3-cell.ink span{animation:c1inked .7s ease}
+
+/* 最后一页：预言 */
+.c3-root .c3-sheet{justify-content:center}
+.c3-root .c3-proph{margin-top:5cqw}
+.c3-root .c3-proph p{font-size:max(16px,5.4cqw);font-weight:700;letter-spacing:.22em;line-height:1.9;color:#1e140b;opacity:0;animation:c3line 1.4s ease forwards}
+.c3-root .c3-proph p:nth-child(2){padding-left:2.2em}
+.c3-root .c3-proph p:nth-child(4){padding-left:2.2em;color:#7a2e1e}
+@keyframes c3line{0%{opacity:0;filter:blur(6px);transform:translateY(6px)}100%{opacity:1;filter:none;transform:none}}
+.c3-root .c3-sig{margin-top:5cqw;font-size:max(11px,3cqw);font-style:italic;color:rgba(43,29,18,.6);opacity:0;animation:c3line 1.4s 4.4s ease forwards}
+
+@media (max-width:767px){
+  .c3-root .c3-cell{height:40px}
+  .c3-root .c3-cell span{font-size:min(11px,2.9vw);letter-spacing:0}
+  .c3-root .c3-strip{gap:4px}
+}

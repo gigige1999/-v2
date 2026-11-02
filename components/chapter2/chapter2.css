@@ -1,0 +1,43 @@
+/* =========================================================
+   第二章 · 冰的炼金术（在第一章书页样式之上的补充，限定 .c2-root）
+   ========================================================= */
+.c2-root .c2-pennant{transform-box:fill-box;transform-origin:0 50%;animation:c2flag 1.6s ease-in-out infinite alternate}
+@keyframes c2flag{to{transform:scaleX(.8) skewY(5deg)}}
+.c2-root .c2-glints path,.c2-root .c2-glint,.c2-root .c2-tw{transform-box:fill-box;transform-origin:center;animation:c2tw 2.3s ease-in-out infinite}
+.c2-root .c2-glints path:nth-child(2),.c2-root .c2-tw.t2{animation-delay:-.8s}
+.c2-root .c2-glints path:nth-child(3),.c2-root .c2-tw.t3{animation-delay:-1.5s}
+@keyframes c2tw{0%,100%{opacity:.3;transform:scale(.65)}50%{opacity:1;transform:scale(1.15)}}
+
+/* 泥地：土包颤动、磁力线流动 */
+.c2-root .c2-mound{transform-box:fill-box;transform-origin:50% 100%}
+.c2-root .c2-mound.tremble{animation:c2trem .12s linear infinite alternate}
+@keyframes c2trem{from{transform:translate(-1.2px,0) rotate(-3deg)}to{transform:translate(1.2px,-1.5px) rotate(3deg)}}
+.c2-root .c2-field{animation:c2field 1s linear infinite}
+@keyframes c2field{to{stroke-dashoffset:-14}}
+.c2-root #c2-mag [data-if]{transform-box:fill-box;transform-origin:center}
+
+/* 帐篷：寒气、白布发光 */
+.c2-root .c2-mist{opacity:0;animation:c2mist 3s ease-in-out infinite}
+.c2-root .c2-mist.m2{animation-delay:-1s}
+.c2-root .c2-mist.m3{animation-delay:-2s}
+@keyframes c2mist{0%{opacity:0;transform:translateY(8px)}30%{opacity:.85}100%{opacity:0;transform:translateY(-28px)}}
+.c2-root #c2-sheetGlow{transition:opacity 1.2s}
+.c2-root #c2-sheetGlow.on{opacity:1;animation:c1pulse 2.2s infinite}
+.c2-root #c2-proj{transition:opacity .25s}
+.c2-root #c2-lamp .c1-zh{cursor:grab}
+.c2-root #c2-lamp .c1-zh:active{cursor:grabbing}
+
+/* 冰：霜（canvas）与冻手 */
+.c2-root .c2-frost{position:absolute;inset:0;width:100%;height:100%;z-index:2;cursor:grab;touch-action:none;transition:opacity 1.6s ease}
+.c2-root .c2-frost:active{cursor:grabbing}
+.c2-root .c2-iceEdge{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:multiply}
+.c2-root .c2-frost.gone{opacity:0;pointer-events:none}
+.c2-root .c2-cold{position:absolute;inset:-2%;z-index:3;pointer-events:none;opacity:0;transition:opacity .15s linear;
+  background:radial-gradient(ellipse at 50% 50%,transparent 42%,rgba(214,232,236,.5) 72%,rgba(246,250,251,.95) 100%);
+  box-shadow:inset 0 0 50px rgba(255,255,255,.7)}
+.c2-root .c2-numb{animation:c1shake .45s}
+
+/* 结局：落在书页上的冰晶 */
+.c2-snow{position:absolute;z-index:25;pointer-events:none;color:#f6f9f6;line-height:1;
+  text-shadow:0 0 1px #2b1d12,0 0 1px #2b1d12,0 0 6px rgba(200,225,230,.8)}
+.c2-root .c2-flash{background:radial-gradient(circle,#f4fbff,rgba(220,238,240,.65) 60%,transparent)}

@@ -1,0 +1,7 @@
+{
+  "name": "One Hundred Years of Solitude: Book of Memory",
+  "description": "An interactive deconstruction of Gabriel García Márquez's masterpiece. Solve puzzles across 7 chapters to reconstruct the Buendía family history through a mysterious, vintage book interface.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

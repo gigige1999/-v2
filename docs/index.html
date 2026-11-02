@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Hundred Years of Solitude: Book of Memory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --app-bg: #f5f1e6;
+            --page-bg: #fdfaf3;
+            --stained-bg: #e8dab2;
+            --text-main: #2d241e;
+            --frame-border: #3c2814;
+            --frame-glow: rgba(0, 0, 0, 0.1);
+            --accent-gold: #b45309;
+            --parchment-shadow: rgba(139, 69, 19, 0.15);
+        }
+
+        .dark-mode {
+            --app-bg: #0c0a09;
+            --page-bg: #f2e8cf; /* Keeps pages readable but the app dark */
+            --stained-bg: #dcc7a1;
+            --text-main: #1a0f08;
+            --frame-border: #1a1a1a;
+            --frame-glow: rgba(0, 0, 0, 0.8);
+            --accent-gold: #d97706;
+            --parchment-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            overflow-y: auto;
+            background-color: var(--app-bg);
+            color: var(--text-main);
+            font-family: 'Cormorant Garamond', serif;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* High Granularity Parchment Texture */
+        .parchment {
+            background-color: #f2e8cf;
+            background-image: 
+                url("https://www.transparenttextures.com/patterns/stardust.png"),
+                url("https://www.transparenttextures.com/patterns/old-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%);
+            box-shadow: inset 0 0 120px var(--parchment-shadow);
+            position: relative;
+        }
+        
+        /* Extremely weathered, stained, and grainy */
+        .stained-parchment {
+            background-color: #dcc7a1;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(60, 40, 20, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 85%, rgba(80, 50, 30, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 60%),
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                url("https://www.transparenttextures.com/patterns/stardust.png");
+            box-shadow: inset 0 0 150px var(--parchment-shadow);
+        }
+
+        /* Heavy Metallic Frame */
+        .metallic-frame {
+            border: 24px solid var(--frame-border);
+            border-image: linear-gradient(to right, #0f0f0f, #2a2a2a, #0f0f0f) 1;
+            background: #0a0a0a;
+            box-shadow: 
+                0 0 0 2px rgba(212, 175, 55, 0.1),
+                inset 0 0 20px rgba(0,0,0,1),
+                0 50px 100px var(--frame-glow);
+            position: relative;
+            transition: all 0.8s ease;
+        }
+
+        /* Light mode: remove dark frame, use subtle parchment border */
+        body:not(.dark-mode) .metallic-frame {
+            border: 4px solid rgba(139, 69, 19, 0.15);
+            border-image: none;
+            background: transparent;
+            box-shadow: 
+                0 0 0 1px rgba(139, 69, 19, 0.08),
+                0 20px 60px rgba(139, 69, 19, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .metallic-frame::before {
+            content: "";
+            position: absolute;
+            inset: -24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        body:not(.dark-mode) .metallic-frame::before {
+            inset: -4px;
+            border: none;
+        }
+
+        /* Mobile: reduce frame thickness */
+        @media (max-width: 767px) {
+            .metallic-frame {
+                border-width: 8px;
+            }
+            .metallic-frame::before {
+                inset: -8px;
+            }
+            body:not(.dark-mode) .metallic-frame {
+                border-width: 2px;
+            }
+            body:not(.dark-mode) .metallic-frame::before {
+                inset: -2px;
+            }
+        }
+
+        /* Weathered decorative corner accents */
+        .corner-accent {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 6;
+            pointer-events: none;
+        }
+        .corner-tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .corner-tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .corner-br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+        .deckle-edge {
+            filter: url(#rough-edge);
+        }
+
+        /* Line Art Icons Styling */
+        .line-art-icon {
+            stroke: #3c2814;
+            fill: none;
+            stroke-width: 0.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.6;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+        }
+
+        .handwritten {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #1a0f08;
+            letter-spacing: -0.01em;
+        }
+
+        .log-header {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #1a0f08;
+        }
+        
+        .sketch-container {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: sepia(0.5) contrast(1.1);
+        }
+        
+        .sketch-container:hover {
+            transform: scale(1.08) rotate(2deg);
+            opacity: 1;
+            filter: sepia(0) contrast(1.2);
+        }
+
+        /* 2.0: 右页工具按钮（横排，墨线圆钮） */
+        .page-tool {
+            width: 38px; height: 38px; border-radius: 9999px;
+            border: 1px solid rgba(43, 29, 18, .32);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(43, 29, 18, .7); font-size: 16px; line-height: 1;
+            background: rgba(255, 250, 235, .35);
+            box-shadow: inset 0 0 0 3px rgba(242, 232, 207, .6), 0 2px 6px rgba(60, 40, 20, .12);
+            transition: all .25s ease;
+        }
+        .page-tool:hover { background: #2b1d12; color: #f2e8cf; }
+        @media (max-width: 767px) { .page-tool { width: 34px; height: 34px; font-size: 14px; } }
+
+        /* 2.0: 进入章节时右页像翻过来一样落下 */
+        .page-turn-in {
+            transform-origin: left center;
+            animation: pageTurnIn .9s cubic-bezier(.25, .8, .25, 1) both;
+        }
+        @keyframes pageTurnIn {
+            0% { transform: perspective(2200px) rotateY(-62deg); opacity: 0; filter: brightness(.82); }
+            60% { opacity: 1; }
+            100% { transform: none; opacity: 1; filter: none; }
+        }
+
+        /* Custom scrollbar for logbook */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(60, 40, 20, 0.2);
+            border-radius: 2px;
+        }
+    </style>
+
+  <script defer src="./assets/index-CGAYz4GR.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true" focusable="false">
+        <filter id="rough-edge">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="5" />
+            <feDisplacementMap in="SourceGraphic" scale="4" />
+        </filter>
+    </svg>
+</body>
+</html>
