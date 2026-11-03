@@ -105,6 +105,22 @@ export function rebecca(x, y, s, { lw = 1.5 } = {}) {
   });
 }
 
+// 美人儿蕾梅黛丝：长发及腰、白袍、总是闭着眼（坐着，用于升天那一幕）
+export function remedios(x, y, s, { lw = 1.5 } = {}) {
+  const H = '#241a12';
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <path d="M-22 8 Q-26 20 -18 26 L18 26 Q28 18 22 8Z" fill="#f6efdc" stroke="${INK}" stroke-width="${(lw / s).toFixed(2)}" stroke-linejoin="round"/>
+    <path d="M-30 30 Q-14 22 0 26 Q16 22 30 30 L28 38 Q0 32 -28 38Z" fill="${H}" stroke="${INK}" stroke-width="${(lw * .8 / s).toFixed(2)}"/>
+    ${torso({ x: 0, y: -6, s: 1, w: 11, h: 26, cloth: '#fbf5e6', kind: 'robe', shirt: '#f2e8d0', lw })}
+    ${head({
+    x: 0, y: -34, s: 1, lw, shape: 'oval', skin: '#f0e0c4', hair: H, eyes: false, brow: 1, cheeks: .45, mouth: 'smile', nose: 'small',
+    back: `<path d="M-13 -2 Q-17 -16 0 -17 Q17 -16 13 -2 L15 30 L7 28 L7 14 L-7 14 L-7 28 L-15 30Z" fill="${H}" stroke="${INK}" stroke-width="${(lw / s).toFixed(2)}"/>`,
+    front: `<path d="M-12 -3.4 Q-12.6 -16 0 -16.4 Q12.6 -16 12 -3.4 Q11 -8.4 9 -8.4 L-9 -8.4 Q-11 -8.4 -12 -3.4Z" fill="${H}"/>`
+  })}
+    <path d="M-7 -33.6 Q-5 -31.6 -3 -33.6 M3 -33.6 Q5 -31.6 7 -33.6" fill="none" stroke="${INK}" stroke-width="${(lw * .7 / s).toFixed(2)}" stroke-linecap="round"/>
+  </g>`;
+}
+
 // 梅尔基亚德斯：灰白乱胡子、小圆眼镜、长脸（宽檐黑帽由场景绘制）
 export function melquiades(x, y, s, { lw = 1.5 } = {}) {
   const B = '#c9bfa6';

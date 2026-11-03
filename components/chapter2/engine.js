@@ -108,7 +108,6 @@ export function mountChapter2(root, { onComplete } = {}) {
   <div class="c1-wrap">
     <div class="c1-head">
       <span class="c1-kicker"><b>CAP. I</b>El gran invento de nuestro tiempo</span>
-      <div class="c1-pips" title="冰的炼金术">${PIPS.map(([k, c]) => `<div class="c1-pip" data-k="${k}"><span>${c}</span></div>`).join('')}</div>
     </div>
     <div class="c1-stage"><div class="c1-box"></div></div>
     <div class="c1-narr"><span></span></div>

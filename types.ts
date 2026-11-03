@@ -25,4 +25,5 @@ export interface GameState {
   language: Language;
   theme: Theme;
   chapterImages: Record<number, string>; // Persisted images
+  stageOnePassed?: number[]; // 已通过第一关的章节（用于解锁下一章）
 }

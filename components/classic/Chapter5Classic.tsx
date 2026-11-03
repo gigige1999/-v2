@@ -121,8 +121,9 @@ export const Chapter5Classic: React.FC<Chapter5Props> = ({ onComplete, lang, tri
           setTimeout(onComplete, 2000);
         }, 1500);
       } else {
-        // Move to next round
+        // Move to next round（必须同时切回 showing，否则下一轮的序列不会再闪）
         setTimeout(() => {
+          setPhase('showing');
           setCurrentRound(prev => prev + 1);
         }, 1500);
       }

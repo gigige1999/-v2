@@ -11,6 +11,10 @@ interface Props {
   Classic: React.FC<StageProps>;
   Advanced: React.FC<StageProps>;
   onComplete: () => void;
+  /** 通过第一关时调用（用于解锁下一章） */
+  onStageOneComplete?: () => void;
+  /** 最后一章的编号：它需要前面每一章两关都通过才会解锁 */
+  lastId?: number;
   lang: Language;
   autoSolveCount: number;
 }
@@ -18,7 +22,7 @@ interface Props {
 const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 
 // 每章两个小关卡：第一关 = 原版简单玩法（不改动），通过后进入第二关 = 2.0 新玩法
-export const TwoStageChapter: React.FC<Props> = ({ id, Classic, Advanced, onComplete, lang, autoSolveCount }) => {
+export const TwoStageChapter: React.FC<Props> = ({ id, Classic, Advanced, onComplete, onStageOneComplete, lastId = 7, lang, autoSolveCount }) => {
   const key = chapterStageKey(id);
   const [stage, setStage] = useState<Stage>(() => {
     try { return localStorage.getItem(key) === '2' ? 'advanced' : 'classic'; } catch { return 'classic'; }
@@ -29,12 +33,20 @@ export const TwoStageChapter: React.FC<Props> = ({ id, Classic, Advanced, onComp
   countRef.current = autoSolveCount;
   const completeRef = useRef(onComplete);
   completeRef.current = onComplete;
+  const stageOneRef = useRef(onStageOneComplete);
+  stageOneRef.current = onStageOneComplete;
   const zh = lang === 'zh';
 
   const classicDone = useCallback(() => {
     solveBase.current = countRef.current;
+    stageOneRef.current?.();
     setStage(s => (s === 'classic' ? 'between' : s));
   }, []);
+
+  const unlockNote = id >= lastId ? null
+    : id + 1 === lastId
+      ? (zh ? '最后一章要等前面每一章的两关都通过，才会解锁。' : 'The final chapter unlocks only after both stages of every chapter are cleared.')
+      : (zh ? '下一章已经解锁——也可以先回目录，往下读。' : 'The next chapter is now unlocked — you may also return to the index and read on.');
   const advancedDone = useCallback(() => completeRef.current(), []);
 
   const enterAdvanced = () => {
@@ -85,6 +97,7 @@ export const TwoStageChapter: React.FC<Props> = ({ id, Classic, Advanced, onComp
             <button onClick={enterAdvanced} className="px-8 py-3 border border-amber-950/60 bg-amber-950 text-amber-50 font-serif tracking-[0.3em] text-sm hover:bg-amber-900 active:scale-95 transition-all shadow-lg">
               {zh ? '翻开下一页 · 第二关' : 'Turn the page · Stage II'}
             </button>
+            {unlockNote && <p className="font-serif italic text-xs tracking-wider opacity-60">{unlockNote}</p>}
           </div>
         </div>
       )}

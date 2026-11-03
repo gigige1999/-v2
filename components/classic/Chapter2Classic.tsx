@@ -13,6 +13,15 @@ interface Chapter2Props {
 // The correct sequence is: ☉ → ☿ → ☽ → ♄
 const CORRECT_SEQUENCE = ['☉', '☿', '☽', '♄'];
 const ALL_SYMBOLS = ['☉', '☽', '☿', '♄', '♃', '♂'];
+// 符号释义（仅用于显示，玩法不变）：玩家不认识炼金/天体符号时，直接在符号下标出名字
+const SYMBOL_NAMES: Record<string, { zh: string; en: string }> = {
+  '☉': { zh: '太阳', en: 'Sun' },
+  '☽': { zh: '月亮', en: 'Moon' },
+  '☿': { zh: '水星', en: 'Mercury' },
+  '♄': { zh: '土星', en: 'Saturn' },
+  '♃': { zh: '木星', en: 'Jupiter' },
+  '♂': { zh: '火星', en: 'Mars' },
+};
 
 export const Chapter2Classic: React.FC<Chapter2Props> = ({ onComplete, lang, triggerAutoSolve }) => {
   const [isMelted, setIsMelted] = useState(false);
@@ -148,15 +157,19 @@ export const Chapter2Classic: React.FC<Chapter2Props> = ({ onComplete, lang, tri
            )}
 
            {/* Alchemy Symbols */}
-           <div className="flex flex-wrap gap-4 justify-center">
+           <div className="flex flex-wrap gap-x-3 gap-y-2 justify-center">
               {ALL_SYMBOLS.map(s => (
                 <button 
                   key={s} 
                   onClick={() => addSymbol(s)}
-                  className={`text-4xl font-serif transition-all hover:scale-125 hover:text-amber-600 active:scale-90
-                    ${inputSequence.includes(s) ? 'text-amber-900 drop-shadow-lg' : 'text-stone-400'}`}
+                  title={SYMBOL_NAMES[s][lang]}
+                  className={`group flex flex-col items-center leading-none transition-all active:scale-90
+                    ${inputSequence.includes(s) ? 'text-amber-900 drop-shadow-lg' : 'text-stone-500'}`}
                 >
-                  {s}
+                  <span className="text-4xl font-serif transition-transform group-hover:scale-125 group-hover:text-amber-600">{s}</span>
+                  <span className={`mt-1.5 font-serif font-semibold tracking-[0.12em] ${lang === 'zh' ? 'text-[12px]' : 'text-[9px] uppercase'} ${inputSequence.includes(s) ? 'text-amber-900' : 'text-amber-950/80'}`}>
+                    {SYMBOL_NAMES[s][lang]}
+                  </span>
                 </button>
               ))}
            </div>

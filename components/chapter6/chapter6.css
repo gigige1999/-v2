@@ -1,0 +1,43 @@
+/* =========================================================
+   第六章 · 镜子房间（在第一章书页样式之上的补充，限定 .c6-root）
+   ========================================================= */
+.c6-root .c6-capt{position:absolute;left:0;right:0;top:91.2%;z-index:2;pointer-events:none;text-align:center;
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;font-size:2.8cqw;letter-spacing:.22em;color:rgba(43,29,18,.72);line-height:1}
+.c6-root .c6-hit{fill:transparent;pointer-events:all;touch-action:none;cursor:grab}
+.c6-root .c6-hit:active{cursor:grabbing}
+.c6-root .c6-slide{cursor:ew-resize}
+.c6-root #c6-beam{stroke-dasharray:3 15;animation:c6flow .9s linear infinite}
+@keyframes c6flow{to{stroke-dashoffset:-36}}
+.c6-root .c6-mir .c6-mrot>rect:first-child{transition:stroke .2s}
+.c6-root .c6-mir:hover .c6-mrot>rect:first-child{stroke:#b8862e;stroke-width:2}
+.c6-root .c6-mir.hit .c6-knob circle:first-child{fill:#f1c766}
+.c6-root .c6-exit{transition:fill .35s;animation:c6ex 2.4s ease-in-out infinite}
+@keyframes c6ex{50%{stroke:#e0a83a;stroke-width:2.4}}
+.c6-root .c6-exit.lit{fill:#fff2a6;filter:drop-shadow(0 0 6px #ffd84a)}
+#c6-crankG:hover circle:first-child{fill:#e2d7bf}
+@keyframes c6mote{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-140px);opacity:0}}
+.c6-root .c6-nav.ready{background:#7a2416;color:#f6eed6;border-color:#7a2416;animation:c6pulse 1.4s ease-in-out infinite}
+@keyframes c6pulse{50%{box-shadow:0 0 0 4px rgba(122,36,22,.18)}}
+.c6-root .c1-scene{background:#efe6c8}
+
+.c6-root .c6-bottom{align-items:center;justify-content:center;gap:12px}
+.c6-root .c6-nav{font-family:inherit;font-size:12px;letter-spacing:.08em;background:none;border:1px solid rgba(43,29,18,.4);
+  padding:3px 10px;cursor:pointer;color:rgba(43,29,18,.85);transition:all .2s}
+.c6-root .c6-nav:hover:not(:disabled){background:var(--ink);color:var(--cre)}
+.c6-root .c6-nav:disabled{opacity:.3;cursor:default}
+.c6-root .c6-where{font-size:12px;letter-spacing:.16em;color:rgba(43,29,18,.7);min-width:9em;text-align:center}
+
+/* 最后一页 */
+.c6-root .c6-sheet{justify-content:center}
+.c6-root .c6-pair{width:26cqw;margin:3cqw auto 0;opacity:0;animation:c6line 1.2s .1s ease forwards}
+.c6-root .c6-poem{margin-top:3cqw}
+.c6-root .c6-poem p{font-size:max(15px,4.8cqw);font-weight:700;letter-spacing:.18em;line-height:1.85;color:#1e140b;opacity:0;animation:c6line 1.4s ease forwards}
+@keyframes c6line{0%{opacity:0;filter:blur(6px);transform:translateY(6px)}100%{opacity:1;filter:none;transform:none}}
+.c6-root .c6-quote{margin-top:4cqw;font-size:max(13px,3.8cqw);line-height:1.7;color:rgba(43,29,18,.82);opacity:0;animation:c6line 1.4s 4.2s ease forwards}
+.c6-root .c6-sig{margin-top:1.6cqw;font-size:max(11px,3cqw);font-style:italic;color:rgba(43,29,18,.6);opacity:0;animation:c6line 1.4s 4.8s ease forwards}
+
+@media (max-width:767px){
+  .c6-root .c6-bottom{gap:6px}
+  .c6-root .c6-nav{font-size:11px;padding:2px 6px}
+  .c6-root .c6-where{font-size:11px;min-width:7em}
+}

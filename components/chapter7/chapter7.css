@@ -1,0 +1,44 @@
+/* =========================================================
+   第七章 · 消逝的地图（一笔读完马孔多）
+   在第一章书页样式之上的补充，限定 .c7-root
+   ========================================================= */
+.c7-root .c7-capt{position:absolute;left:0;right:0;top:91.2%;z-index:2;pointer-events:none;text-align:center;
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;font-size:2.8cqw;letter-spacing:.22em;color:rgba(43,29,18,.72);line-height:1}
+.c7-root .c1-scene{background:#ecdfba}
+.c7-root .c1-scene text{font-family:'Songti SC','STSong','Noto Serif SC',serif}
+
+/* 地图格子 */
+.c7-root .c7-cell{pointer-events:none}
+.c7-root .c7-tile{fill:#e9d8a8;fill-opacity:0;stroke:none;transition:fill-opacity .35s,fill .35s}
+.c7-root .c7-rail .c7-tile{fill:#d8c69a;fill-opacity:.55}
+.c7-root .c7-in{transition:opacity .45s,filter .45s}
+.c7-root .c7-cell.gone .c7-tile{fill:#c9b487;fill-opacity:.42}
+.c7-root .c7-cell.gone .c7-in{opacity:.28;filter:grayscale(.7)}
+.c7-root .c7-cell.gone .c7-badge{opacity:.55}
+.c7-root .c7-cell.target .c7-tile{fill:#f2d88a;animation:c7pulse 1.3s ease-in-out infinite}
+.c7-root .c7-cell.target .c7-badge circle{stroke:#f2d88a;stroke-width:2.2}
+@keyframes c7pulse{0%,100%{fill-opacity:.15}50%{fill-opacity:.7}}
+
+/* 路径流动 */
+.c7-root .c7-flow{animation:c7flow 1.6s linear infinite}
+@keyframes c7flow{to{stroke-dashoffset:-22}}
+
+.c7-root #c7-hit{cursor:crosshair;touch-action:none}
+.c7-root #c7-next{pointer-events:none}
+
+/* 底栏 */
+.c7-root .c7-bottom{align-items:center;justify-content:center;gap:10px}
+.c7-root .c7-prog{flex:1;text-align:center;font-size:11.5px;letter-spacing:.12em;color:rgba(43,29,18,.78);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c7-root .c7-btn{font-family:inherit;font-size:11.5px;letter-spacing:.08em;background:none;border:1px solid rgba(43,29,18,.4);
+  padding:2px 8px;cursor:pointer;color:rgba(43,29,18,.85);transition:all .2s;flex:none}
+.c7-root .c7-btn:hover:not(:disabled){background:var(--ink);color:var(--cre)}
+.c7-root .c7-btn:disabled{opacity:.3;cursor:default}
+
+@media (prefers-reduced-motion:reduce){
+  .c7-root .c7-flow,.c7-root .c7-cell.target .c7-tile{animation:none}
+}
+@media (max-width:767px){
+  .c7-root .c7-bottom{gap:6px}
+  .c7-root .c7-prog{font-size:10.5px;letter-spacing:.06em}
+  .c7-root .c7-btn{font-size:10.5px;padding:2px 5px}
+}

@@ -58,7 +58,6 @@ export function mountChapter4(root, { onComplete } = {}) {
   <div class="c1-wrap">
     <div class="c1-head">
       <span class="c1-kicker"><b>CAP. IV</b>Una rueda giratoria</span>
-      <div class="c1-pips" title="循环的迷宫">${PIPS.map((c, i) => `<div class="c1-pip" data-k="${i}"><span>${c}</span></div>`).join('')}</div>
     </div>
     <div class="c1-stage"><div class="c1-box"></div></div>
     <div class="c1-narr"><span></span></div>

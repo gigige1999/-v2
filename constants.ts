@@ -81,8 +81,8 @@ export const INITIAL_CHAPTERS: Chapter[] = [
       zh: "美人儿蕾梅黛丝的升天。在记忆的碎片中寻找光芒。" 
     },
     instructions: {
-      en: "Guide light from the source (bottom-left) to Remedios (top-center) by adjusting 5 mirrors. Each click rotates a mirror 45°. Light travels through correctly aligned mirrors in sequence — align them one by one from the source. The path is shown as a faint guide.",
-      zh: "将光线从光源（左下角）引导至蕾梅黛丝（顶部中央），通过调整5面镜子的角度。每次点击旋转45°。光线会依次通过正确对齐的镜子 — 从光源开始逐个调整。路径有淡色引导线提示。"
+      en: "Light travels THROUGH the pages: the beam that leaks out of a doorway on one page is the beam coming in on the next. Drag a mirror's rim to turn it. Room 1: send the light out of the right doorway. Room 2: choose one of three slits in the right wall (only the highest one continues). Room 3: slide the mirror along the rail until the beam can slip between the two hanging sheets, then turn it onto Remedios. Use ‹ / › to flip back and forth.",
+      zh: "光会穿过书页：前一页从门缝里漏出去的那束光，就是翻过一页之后进来的那束光。按住镜子边沿拖动就能转角度。缝纫室：让光从右边的门缝漏出去；走廊：右墙有三道缝，只有最高的那道接得上；院子：先把镜子沿地上的轨道滑到能穿过两床床单之间那条缝的位置，再把光打到蕾梅黛丝身上。底部 ‹ / › 可以翻回上一页。"
     },
     status: ChapterStatus.LOCKED,
   },
@@ -95,8 +95,8 @@ export const INITIAL_CHAPTERS: Chapter[] = [
       zh: "马孔多的历史即将终结。在它永远消失之前，最后一次拼凑出这座村庄的地图。" 
     },
     instructions: {
-      en: "Select a map fragment, rotate it to 0° using the rotation button, then click the correct grid cell to place it. WARNING: placed fragments will FADE and disappear after 12 seconds! You must place all 4 fragments in correct positions with correct rotation before any fade away.",
-      zh: "选择地图碎片，用旋转按钮将其转到0°，然后点击正确的网格位置放置。注意：放置的碎片会在12秒后逐渐消逝！必须在碎片消失前将全部4块碎片放到正确位置并旋转至正确角度。"
+      en: "Decrypt Melquiades' parchment in the hurricane: even lines use a Caesar shift wheel (drag the wheel to turn it, it has inertia), odd lines must be read like a message strip wound around a stick (drag the brass cap to change how it is wound). Wind is blowing the pages away — close the shutters when a gust comes, light the candle to read in the dark, and HOLD a sheet so the wind cannot take it. The more lines you save, the more of the ending you keep.",
+      zh: "在飓风里破译梅尔基亚德斯的羊皮卷：偶数行是凯撒位移转盘（按住转盘转，它有惯性，得慢慢刹住），奇数行要像把纸条缠在木棒上那样读（拖动铜帽换一种缠法）。风正把羊皮卷一张张卷走——起风前合上百叶（可屋里会黑，这时点亮蜡烛才看得见字），风来时按住羊皮卷不放，它就不会被吹走。救下来的行越多，最后一页留下来的字就越多。"
     },
     status: ChapterStatus.LOCKED,
   }

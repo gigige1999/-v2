@@ -82,7 +82,6 @@ export function mountChapter5(root, { onComplete } = {}) {
   <div class="c1-wrap">
     <div class="c1-head">
       <span class="c1-kicker"><b>CAP. V</b>Los pescaditos de oro</span>
-      <div class="c1-pips" title="帮你的手">${KEYS.map(k => `<div class="c1-pip" data-k="${k}"><span>${PIP[k]}</span></div>`).join('')}</div>
     </div>
     <div class="c1-stage"><div class="c1-box"></div></div>
     <div class="c1-narr"><span></span></div>

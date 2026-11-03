@@ -20,5 +20,13 @@ export const CLASSIC_INSTRUCTIONS: Record<number, { en: string; zh: string }> = 
   5: {
     en: "Watch the glowing sequence of goldfish forge slots, then reproduce it from memory. Each round the sequence gets longer (3→4→5→6). Click the wrong slot and the round restarts. Complete all 4 rounds to break the loop.",
     zh: "观察金鱼铸造槽的发光序列，然后凭记忆重现。每轮序列会变长（3→4→5→6个）。点错则重新观察本轮序列。完成全部4轮即可打破循环。"
+  },
+  6: {
+    en: "Adjust 5 mirrors to guide the light from the bottom-left source to Remedios at the top-center. Each click rotates a mirror 45°. Light travels through correctly aligned mirrors in sequence — align them one by one from the source. The path is shown as a faint guide.",
+    zh: "将光线从光源（左下角）引导至蕾梅黛丝（顶部中央），通过调整5面镜子的角度。每次点击旋转45°。光线会依次通过正确对齐的镜子 — 从光源开始逐个调整。路径有淡色引导线提示。"
+  },
+  7: {
+    en: "Select a map fragment, rotate it to 0° with the rotation button, then click the correct grid cell to place it. WARNING: placed fragments FADE and disappear after 12 seconds! You must place all 4 fragments in the correct positions with the correct rotation before any fade away.",
+    zh: "选择地图碎片，用旋转按钮将其转到0°，然后点击正确的网格位置放置。注意：放置的碎片会在12秒后开始淡出并消失！你必须在任何碎片消失之前，把4块碎片都以正确的朝向放进正确的格子。"
   }
 };

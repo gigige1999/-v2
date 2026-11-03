@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { INITIAL_CHAPTERS, UI_TEXT, CHAPTER_EXCERPTS } from './constants';
-import { ChapterStatus, GameState, Language, Theme } from './types';
+import { Chapter, ChapterStatus, GameState, Language, Theme } from './types';
 import { Chapter1 } from './components/Chapter1';
 import { Chapter2 } from './components/Chapter2';
 import { Chapter3 } from './components/Chapter3';
@@ -14,6 +14,8 @@ import { Chapter2Classic } from './components/classic/Chapter2Classic';
 import { Chapter3Classic } from './components/classic/Chapter3Classic';
 import { Chapter4Classic } from './components/classic/Chapter4Classic';
 import { Chapter5Classic } from './components/classic/Chapter5Classic';
+import { Chapter6Classic } from './components/classic/Chapter6Classic';
+import { Chapter7Classic } from './components/classic/Chapter7Classic';
 import { CLASSIC_INSTRUCTIONS } from './components/classic/info';
 import { TwoStageChapter } from './components/TwoStageChapter';
 import { getPuzzleHint } from './services/geminiService';
@@ -21,8 +23,27 @@ import { getLocalHint, chapterSaveKey, chapterStageKey } from './services/localH
 
 // 2.0 的章节：每章两个小关——第一关是原版简单玩法（不改动），第二关是书页内原生引擎。
 // 右页本身不滚动（第一关在组件内自行滚动），提示走本地分级低语
-const BOOK_ENGINE_CHAPTERS = [1, 2, 3, 4, 5];
+const BOOK_ENGINE_CHAPTERS = [1, 2, 3, 4, 5, 6, 7];
 const isBookEngine = (id: number | null) => id !== null && BOOK_ENGINE_CHAPTERS.includes(id);
+
+// 解锁规则：通过某章第一关即解锁下一章；最后一章要等前面每一章的两关都通过（COMPLETED）才解锁。
+// 已解锁的普通章节不会被重新锁上。
+const applyUnlocks = (chapters: Chapter[], passed: number[]): Chapter[] => {
+  const lastId = chapters[chapters.length - 1]?.id;
+  const done = (c: Chapter) => c.status === ChapterStatus.COMPLETED;
+  return chapters.map((c, i) => {
+    if (done(c)) return c;
+    let open: boolean;
+    if (i === 0) open = true;
+    else if (c.id === lastId) open = chapters.slice(0, i).every(done);
+    else open = c.status === ChapterStatus.UNLOCKED || done(chapters[i - 1]) || passed.includes(chapters[i - 1].id);
+    const status = open ? ChapterStatus.UNLOCKED : ChapterStatus.LOCKED;
+    return status === c.status ? c : { ...c, status };
+  });
+};
+const readPassedFromStages = (chapters: Chapter[]) => {
+  try { return chapters.filter(c => localStorage.getItem(chapterStageKey(c.id)) === '2').map(c => c.id); } catch { return []; }
+};
 
 // 章节顺序调整（冰 → 1、雨 → 2、失眠症 → 3）：把旧存档里的章节号一次性迁移到新编号
 const ORDER_KEY = 'macondo2_order';
@@ -257,17 +278,14 @@ const App: React.FC = () => {
           const s = savedChapters.find(p => p.id === c.id);
           return s ? { ...c, status: s.status } : c;
         });
-        // 保证解锁链连续：第 1 章始终可玩，上一章完成则下一章解锁
-        chapters.forEach((c, i) => {
-          if (c.status !== ChapterStatus.LOCKED) return;
-          if (i === 0 || chapters[i - 1].status === ChapterStatus.COMPLETED) chapters[i] = { ...c, status: ChapterStatus.UNLOCKED };
-        });
-        return { ...initial, ...parsed, chapters, chapterImages: {} };
+        // 按当前解锁规则重算：通过第一关解锁下一章；最后一章需前面全部完成
+        const passed: number[] = [...new Set<number>([...(Array.isArray(parsed.stageOnePassed) ? parsed.stageOnePassed : []), ...readPassedFromStages(chapters)])];
+        return { ...initial, ...parsed, stageOnePassed: passed, chapters: applyUnlocks(chapters, passed), chapterImages: {} };
       } catch (e) {
         return initial;
       }
     }
-    return initial;
+    return { ...initial, chapters: applyUnlocks(INITIAL_CHAPTERS, []) };
   });
 
   const [hint, setHint] = useState<string | null>(null);
@@ -334,14 +352,10 @@ const App: React.FC = () => {
 
   const handleComplete = useCallback((id: number) => {
     setGameState(prev => {
-      const updatedChapters = prev.chapters.map(c => {
-        if (c.id === id) return { ...c, status: ChapterStatus.COMPLETED };
-        if (c.id === id + 1 && c.status === ChapterStatus.LOCKED) return { ...c, status: ChapterStatus.UNLOCKED };
-        return c;
-      });
+      const marked = prev.chapters.map(c => (c.id === id ? { ...c, status: ChapterStatus.COMPLETED } : c));
       return {
         ...prev,
-        chapters: updatedChapters,
+        chapters: applyUnlocks(marked, prev.stageOnePassed || []),
         unlockedGoldVeins: [...new Set([...prev.unlockedGoldVeins, id])]
       };
     });
@@ -349,6 +363,14 @@ const App: React.FC = () => {
     setTransitionChapterId(id);
     setShowTransition(true);
     setCollectedExcerpts(prev => new Set(prev).add(id));
+  }, []);
+
+  // 通过某章第一关：记下来并解锁下一章（最后一章仍需前面全部完成）
+  const handleStageOne = useCallback((id: number) => {
+    setGameState(prev => {
+      const passed = [...new Set([...(prev.stageOnePassed || []), id])];
+      return { ...prev, stageOnePassed: passed, chapters: applyUnlocks(prev.chapters, passed) };
+    });
   }, []);
 
   const closeCurrentChapter = () => {
@@ -417,13 +439,13 @@ const App: React.FC = () => {
     const getChapterComponent = () => {
       switch (gameState.currentChapter) {
         // 章节顺序：1 冰的炼金术（原第 2 章）、2 雨中的羊皮卷（原第 3 章）、3 失眠症的标记（原第 1 章）
-        case 1: return <TwoStageChapter key={puzzleKey} id={1} Classic={Chapter2Classic} Advanced={Chapter2} onComplete={() => handleComplete(1)} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
-        case 2: return <TwoStageChapter key={puzzleKey} id={2} Classic={Chapter3Classic} Advanced={Chapter3} onComplete={() => handleComplete(2)} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
-        case 3: return <TwoStageChapter key={puzzleKey} id={3} Classic={Chapter1Classic} Advanced={Chapter1} onComplete={() => handleComplete(3)} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
-        case 4: return <TwoStageChapter key={puzzleKey} id={4} Classic={Chapter4Classic} Advanced={Chapter4} onComplete={() => handleComplete(4)} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
-        case 5: return <TwoStageChapter key={puzzleKey} id={5} Classic={Chapter5Classic} Advanced={Chapter5} onComplete={() => handleComplete(5)} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
-        case 6: return <Chapter6 key={puzzleKey} onComplete={() => handleComplete(6)} lang={gameState.language} triggerAutoSolve={autoSolveTrigger > 0} />;
-        case 7: return <Chapter7 key={puzzleKey} onComplete={() => handleComplete(7)} lang={gameState.language} triggerAutoSolve={autoSolveTrigger > 0} />;
+        case 1: return <TwoStageChapter key={puzzleKey} id={1} Classic={Chapter2Classic} Advanced={Chapter2} onComplete={() => handleComplete(1)} onStageOneComplete={() => handleStageOne(1)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 2: return <TwoStageChapter key={puzzleKey} id={2} Classic={Chapter3Classic} Advanced={Chapter3} onComplete={() => handleComplete(2)} onStageOneComplete={() => handleStageOne(2)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 3: return <TwoStageChapter key={puzzleKey} id={3} Classic={Chapter1Classic} Advanced={Chapter1} onComplete={() => handleComplete(3)} onStageOneComplete={() => handleStageOne(3)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 4: return <TwoStageChapter key={puzzleKey} id={4} Classic={Chapter4Classic} Advanced={Chapter4} onComplete={() => handleComplete(4)} onStageOneComplete={() => handleStageOne(4)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 5: return <TwoStageChapter key={puzzleKey} id={5} Classic={Chapter5Classic} Advanced={Chapter5} onComplete={() => handleComplete(5)} onStageOneComplete={() => handleStageOne(5)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 6: return <TwoStageChapter key={puzzleKey} id={6} Classic={Chapter6Classic} Advanced={Chapter6} onComplete={() => handleComplete(6)} onStageOneComplete={() => handleStageOne(6)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
+        case 7: return <TwoStageChapter key={puzzleKey} id={7} Classic={Chapter7Classic} Advanced={Chapter7} onComplete={() => handleComplete(7)} onStageOneComplete={() => handleStageOne(7)} lastId={gameState.chapters.length} lang={gameState.language} autoSolveCount={autoSolveTrigger} />;
         default: return null;
       }
     };
@@ -443,12 +465,14 @@ const App: React.FC = () => {
             </h2>
             
             <div className="flex-1 space-y-6 overflow-y-auto pr-4 custom-scrollbar">
-               {gameState.chapters.map((c) => (
+               {gameState.chapters.map((c, ci) => {
+                 const isFinalLocked = c.status === ChapterStatus.LOCKED && ci === gameState.chapters.length - 1;
+                 return (
                  <div 
                   key={c.id} 
                   className={`flex items-start gap-6 p-4 transition-all duration-300 relative group border-b border-amber-950/5
                     ${c.status === ChapterStatus.LOCKED 
-                      ? 'opacity-10 grayscale cursor-not-allowed' 
+                      ? `${isFinalLocked ? 'opacity-40' : 'opacity-10'} grayscale cursor-not-allowed` 
                       : 'cursor-pointer hover:bg-amber-950/5 hover:-translate-x-1'}`}
                   onClick={() => handleChapterSelect(c.id)}
                  >
@@ -460,12 +484,18 @@ const App: React.FC = () => {
                         {c.status === ChapterStatus.COMPLETED ? '✓ ' : ''}{c.title[gameState.language]}
                       </div>
                       <div className="text-[10px] uppercase tracking-[0.3em] text-amber-900/40 mt-2 font-bold">{c.subtitle[gameState.language]}</div>
+                      {isFinalLocked && (
+                        <div className="text-[11px] italic font-serif text-amber-950/80 mt-2 tracking-wider">
+                          🔒 {gameState.language === 'zh' ? '需通过前面每一章的两关后解锁' : 'Unlocks after both stages of every previous chapter'}
+                        </div>
+                      )}
                    </div>
                    {c.status !== ChapterStatus.LOCKED && (
                      <div className="text-amber-900/20 text-xs mt-1">»</div>
                    )}
                  </div>
-               ))}
+                 );
+               })}
             </div>
 
             <div className="mt-8 pt-6 border-t border-amber-950/10 flex justify-between items-center opacity-30 italic font-serif text-xs tracking-widest">

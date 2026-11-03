@@ -34,9 +34,20 @@
 .c1-box{position:relative;width:min(100cqw,calc(100cqh * 400 / 432));aspect-ratio:400/432;perspective:1900px;touch-action:none;container-type:inline-size}
 .c1-leaf.c1-hidden{display:none}
 .c1-leaf{position:absolute;inset:0;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  background-color:#efe3c3;
-  background-image:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(120,85,40,.18) 100%),var(--grain);
+  background-color:#eadbb5;
+  background-image:radial-gradient(ellipse at 50% 45%,transparent 52%,rgba(120,85,40,.22) 100%),var(--grain);
   box-shadow:0 1px 1px rgba(60,40,20,.15),0 10px 22px -12px rgba(60,40,20,.55),1px 0 0 rgba(255,250,235,.6) inset}
+/* 关卡图版做旧：低频茶渍晕染 + 横向纸纤维 + 几处极淡的霉斑 + 边缘焦黄，整体叠乘、低透明度，避免“贴图感” */
+.c1-leaf::before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:multiply;
+  background-image:
+    radial-gradient(ellipse 120% 105% at 50% 48%,transparent 58%,rgba(118,76,28,.16) 86%,rgba(92,56,20,.3) 100%),
+    radial-gradient(circle at 86% 11%,rgba(150,102,46,.11) 0,rgba(150,102,46,.05) 3.5%,transparent 7%),
+    radial-gradient(circle at 13% 83%,rgba(150,102,46,.09) 0,rgba(150,102,46,.04) 2.6%,transparent 5.5%),
+    radial-gradient(circle at 71% 89%,rgba(140,95,40,.07) 0,transparent 2.4%),
+    radial-gradient(circle at 24% 16%,rgba(140,95,40,.06) 0,transparent 1.8%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='432' viewBox='0 0 400 432' preserveAspectRatio='none'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .008' numOctaves='4' seed='23'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .34  0 0 0 0 .14  1.45 0 0 0 -.72'/%3E%3CfeGaussianBlur stdDeviation='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.42' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42  0 0 0 0 .3  0 0 0 0 .15  .75 0 0 0 -.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,240px 240px}
 .c1-leaf::after{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;pointer-events:none;
   background:linear-gradient(to right,rgba(90,60,25,.16),transparent)}
 .c1-shade{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:5;

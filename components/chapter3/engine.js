@@ -58,7 +58,6 @@ export function mountChapter3(root, { onComplete } = {}) {
   <div class="c1-wrap">
     <div class="c1-head">
       <span class="c1-kicker"><b>CAP. II</b>Llovió cuatro años, once meses y dos días</span>
-      <div class="c1-pips" title="雨中的羊皮卷">${PIPS.map((c, i) => `<div class="c1-pip" data-k="${i}"><span>${c}</span></div>`).join('')}</div>
     </div>
     <div class="c1-stage"><div class="c1-box"></div></div>
     <div class="c1-narr"><span></span></div>
