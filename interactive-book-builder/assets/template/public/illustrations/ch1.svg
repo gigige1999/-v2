@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
+  <!-- 左页章节插图占位：可替换为 jpg/png/webp（建议 1200×1600，<500KB），改 chapters/chN/index.ts 的 image 字段 -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="46%" r="45%"><stop offset="0" stop-color="#ffe3a2" stop-opacity=".9"/><stop offset=".4" stop-color="#e8a24c" stop-opacity=".35"/><stop offset="1" stop-color="#2a1a0e" stop-opacity="0"/></radialGradient>
+    <pattern id="h" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="7" stroke="#2b1d12" stroke-opacity=".35"/></pattern>
+  </defs>
+  <rect width="600" height="800" fill="#3a2a1c"/>
+  <rect width="600" height="800" fill="url(#h)"/>
+  <rect width="600" height="800" fill="url(#glow)"/>
+  <path d="M120 560 H480 L510 600 H90 Z" fill="#8a6440" stroke="#1c120a" stroke-width="4"/>
+  <rect x="90" y="600" width="420" height="200" fill="#6b4a2e" stroke="#1c120a" stroke-width="4"/>
+  <rect x="276" y="430" width="48" height="130" fill="#f4ebd5" stroke="#1c120a" stroke-width="3"/>
+  <ellipse cx="300" cy="560" rx="60" ry="12" fill="#b08a4a" stroke="#1c120a" stroke-width="3"/>
+  <path d="M300 340 Q326 384 300 420 Q274 384 300 340Z" fill="#f6c766" stroke="#5a3e24" stroke-width="2"/>
+  <g fill="#f4ebd5" opacity=".7"><circle cx="80" cy="90" r="3"/><circle cx="120" cy="60" r="2"/><circle cx="470" cy="80" r="3"/><circle cx="520" cy="140" r="2"/><circle cx="430" cy="160" r="2"/></g>
+</svg>

@@ -1,0 +1,153 @@
+/* =========================================================
+   书页引擎样式（全部限定在 .bk-root 下，颜色全部来自纸张主题 --pp-*）
+   章节专属动效写在 chapters/chN/chapter.css，类名用 chN- 前缀
+   ========================================================= */
+.bk-root{
+  --ink:var(--pp-ink); --red:var(--pp-accent); --cre:color-mix(in srgb,var(--pp-bg) 55%,#fff);
+  --line:rgb(var(--pp-ink-rgb) / .32);
+  position:relative;height:100%;min-height:560px;color:var(--ink);
+  font-family:'Cormorant Garamond','Songti SC','STSong','Noto Serif SC',serif;
+  user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.bk-wrap{position:absolute;inset:0;display:flex;flex-direction:column;padding:0 24px 12px}
+.bk-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- 页眉（右侧留给 App 的工具按钮） ---------- */
+.bk-head{flex:none;height:66px;display:flex;align-items:center;gap:14px;padding-right:200px}
+.bk-kicker{font-family:'Playfair Display',serif;font-style:italic;font-size:12px;letter-spacing:.18em;color:rgb(var(--pp-ink-rgb)/.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
+.bk-kicker b{font-style:normal;font-weight:700;letter-spacing:.32em;margin-right:6px}
+.bk-pips{display:flex;gap:6px;flex:none}
+.bk-pip{width:22px;height:27px;position:relative;display:grid;place-items:center;font-size:12px;font-weight:700;color:transparent;border:1px dashed var(--line);transition:all .6s cubic-bezier(.3,1.6,.5,1)}
+.bk-pip::before{content:"";position:absolute;top:3px;left:50%;width:4px;height:4px;border-radius:50%;transform:translateX(-50%);border:1px solid rgb(var(--pp-ink-rgb)/.4)}
+.bk-pip span{padding-top:5px}
+.bk-pip.on{background:var(--cre);border:1px solid rgb(var(--pp-ink-rgb)/.6);color:var(--ink);transform:rotate(-4deg);box-shadow:0 2px 4px var(--pp-shadow)}
+.bk-pip.on:nth-child(even){transform:rotate(4deg)}
+.bk-snd{flex:none;align-self:center;width:26px;height:26px;border-radius:50%;border:1px solid rgb(var(--pp-ink-rgb)/.4);background:none;color:rgb(var(--pp-ink-rgb)/.7);font-size:13px;line-height:1;cursor:pointer;font-family:inherit;position:relative;transition:all .2s}
+.bk-snd:hover{background:var(--ink);color:var(--cre)}
+.bk-snd.off{opacity:.5}
+.bk-snd.off::after{content:"";position:absolute;left:4px;right:4px;top:50%;border-top:1px solid currentColor;transform:rotate(-40deg)}
+
+/* ---------- 舞台 / 一叠图版 ---------- */
+.bk-stage{flex:1;min-height:0;position:relative;container-type:size;display:flex;align-items:center;justify-content:center}
+.bk-box{position:relative;width:min(100cqw,calc(100cqh * 400 / 432));aspect-ratio:400/432;perspective:1900px;touch-action:none;container-type:inline-size}
+.bk-leaf.bk-hidden{display:none}
+.bk-leaf{position:absolute;inset:0;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background-color:var(--pp-leaf);background-image:radial-gradient(ellipse at 50% 45%,transparent 52%,var(--pp-shadow) 100%),var(--pp-grain);
+  box-shadow:0 1px 1px var(--pp-shadow),0 10px 22px -12px rgb(var(--pp-ink-rgb)/.55),1px 0 0 rgba(255,255,255,.5) inset}
+.bk-leaf::before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:multiply;
+  background:radial-gradient(ellipse 120% 105% at 50% 48%,transparent 58%,var(--pp-shadow) 86%,rgb(var(--pp-ink-rgb)/.2) 100%),var(--pp-stain)}
+.bk-leaf::after{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;pointer-events:none;background:linear-gradient(to right,rgb(var(--pp-ink-rgb)/.14),transparent)}
+.bk-shade{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:5;background:linear-gradient(to right,rgba(20,14,8,.6),rgba(20,14,8,.22) 55%,rgba(255,248,230,.12))}
+.bk-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.bk-plate{position:absolute;left:4.5%;top:4.1667%;width:91%;height:84.26%;z-index:1}
+.bk-scene{display:block;width:100%;height:100%;mix-blend-mode:multiply;
+  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' preserveAspectRatio='none'><filter id='f' x='-10%' y='-10%' width='120%' height='120%'><feTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' seed='9'/><feDisplacementMap in='SourceGraphic' scale='22' xChannelSelector='R' yChannelSelector='G'/><feGaussianBlur stdDeviation='2.4'/></filter><rect x='14' y='14' width='372' height='372' fill='white' filter='url(%23f)'/></svg>");
+  mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' preserveAspectRatio='none'><filter id='f' x='-10%' y='-10%' width='120%' height='120%'><feTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' seed='9'/><feDisplacementMap in='SourceGraphic' scale='22' xChannelSelector='R' yChannelSelector='G'/><feGaussianBlur stdDeviation='2.4'/></filter><rect x='14' y='14' width='372' height='372' fill='white' filter='url(%23f)'/></svg>");
+  -webkit-mask-size:100% 100%;mask-size:100% 100%}
+.bk-back{position:absolute;left:3.5%;bottom:2.2%;z-index:6;background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;letter-spacing:.18em;color:rgb(var(--pp-ink-rgb)/.78);padding:4px 8px}
+.bk-back:hover{color:var(--red);text-decoration:underline;text-underline-offset:3px}
+.bk-back::before{content:"‹ ";font-size:17px}
+
+/* ---------- 文字页 ---------- */
+.bk-sheet{position:absolute;left:8%;right:8%;top:6%;bottom:12%;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bk-sh-k{font-family:'Playfair Display',serif;font-style:italic;font-size:max(9px,2.4cqw);letter-spacing:.3em;color:rgb(var(--pp-ink-rgb)/.55)}
+.bk-sh-h{font-size:max(15px,4.6cqw);font-weight:700;letter-spacing:.36em;margin-top:.6cqw;text-indent:.36em}
+.bk-sh-sub{font-size:max(11.5px,3cqw);color:rgb(var(--pp-ink-rgb)/.72);margin:1.2cqw 0 .4cqw;line-height:1.55}
+.bk-lined{width:100%;flex:1;min-height:0;overflow-y:auto;margin-top:12px;text-align:left;padding:0 4px 0 30px;position:relative;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,rgb(var(--pp-ink-rgb)/.18) 29px,rgb(var(--pp-ink-rgb)/.18) 30px);background-attachment:local}
+.bk-lined::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:1px;background:rgb(var(--pp-accent-rgb)/.35)}
+.bk-lined p{font-size:15px;line-height:30px;font-weight:600;text-indent:2em}
+.bk-lined p em{font-style:normal;color:var(--red)}
+.bk-lined li{list-style:none;font-size:14px;line-height:30px;position:relative;animation:bknote .8s ease both}
+.bk-lined li::before{content:"";position:absolute;left:-16px;top:12px;width:6px;height:6px;border:1px solid var(--pp-sep);transform:rotate(45deg)}
+.bk-lined::-webkit-scrollbar{width:3px}.bk-lined::-webkit-scrollbar-thumb{background:rgb(var(--pp-ink-rgb)/.3)}
+@keyframes bknote{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:none}}
+.bk-sign{align-self:flex-end;font-size:13px;color:rgb(var(--pp-ink-rgb)/.7);margin-top:6px}
+.bk-btn{margin-top:10px;font-family:inherit;font-size:13px;letter-spacing:.32em;padding:7px 22px;background:var(--ink);color:var(--cre);border:none;cursor:pointer;transition:background .2s}
+.bk-btn:hover{background:var(--red)}
+/* 字块（拼字 / 命名 / 密码类小谜题可复用） */
+.bk-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:1.8cqw 2.2cqw;width:min(100%,64cqw);margin-top:2cqw}
+.bk-tile{height:10cqw;font-family:inherit;font-size:6cqw;font-weight:600;color:var(--ink);cursor:pointer;background:rgba(255,255,255,.25);border:1px dashed var(--line);border-radius:2px;transition:filter .2s,background .2s,opacity .3s}
+.bk-tile:hover{background:rgba(255,255,255,.6)}
+.bk-tile.used{opacity:.18;pointer-events:none}
+.bk-shake{animation:bkshake .45s}
+@keyframes bkshake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+
+/* ---------- 旁白 ---------- */
+.bk-narr{flex:none;min-height:56px;display:flex;align-items:center;justify-content:center;padding:6px 8px 2px;text-align:center}
+.bk-narr span{font-size:15px;line-height:1.75;color:rgb(var(--pp-ink-rgb)/.9);letter-spacing:.04em;transition:opacity .35s,filter .35s}
+.bk-narr span.out{opacity:0;filter:blur(4px)}
+.bk-narr span::before{content:"❧ ";color:rgb(var(--pp-accent-rgb)/.65)}
+.bk-narr span:empty{display:none}
+.bk-narr span.whisper{font-style:italic;color:var(--red)}
+.bk-narr span.whisper::before{content:"✧ "}
+
+/* ---------- 物品栏 + 笔记本书签 ---------- */
+.bk-bottom{flex:none;display:flex;align-items:flex-end;justify-content:center;gap:12px;padding-top:8px;border-top:1px solid rgb(var(--pp-ink-rgb)/.16);position:relative}
+.bk-inv{display:flex;gap:6px}
+.bk-slot{width:46px;height:52px;position:relative;cursor:pointer;display:grid;place-items:center;border:1px dashed rgb(var(--pp-ink-rgb)/.38);border-radius:2px 2px 10px 10px;background:rgb(var(--pp-ink-rgb)/.04);transition:transform .2s,background .2s;touch-action:none}
+.bk-slot::before{content:"";position:absolute;left:4px;right:4px;top:7px;border-top:1px dashed rgb(var(--pp-ink-rgb)/.25)}
+.bk-slot svg{width:82%;height:82%;position:relative;transition:transform .2s;color:var(--ink)}
+.bk-slot:not(.empty):hover svg{transform:scale(1.08) rotate(-4deg)}
+.bk-slot.sel{border:1px solid var(--ink);background:rgb(var(--pp-accent-rgb)/.12);transform:translateY(-4px);box-shadow:0 4px 8px -4px rgb(var(--pp-ink-rgb)/.4)}
+.bk-slot.empty{cursor:default;opacity:.55}
+.bk-slot .cnt{position:absolute;right:-5px;bottom:-5px;min-width:16px;height:16px;border-radius:50%;background:var(--red);color:var(--cre);font-size:10px;line-height:16px;text-align:center;font-family:Georgia,serif}
+.bk-slot.arriving svg{opacity:0}
+.bk-slot.pop{animation:bkpop .45s cubic-bezier(.3,1.8,.5,1)}
+@keyframes bkpop{0%{transform:scale(.85)}60%{transform:scale(1.12)}100%{transform:none}}
+.bk-ribbon{flex:none;align-self:stretch;margin:-9px 0 -12px 4px;width:26px;padding:10px 0 18px;background:var(--red);color:var(--cre);border:none;cursor:pointer;font-family:inherit;font-size:12px;letter-spacing:.2em;writing-mode:vertical-rl;clip-path:polygon(0 0,100% 0,100% 100%,50% calc(100% - 9px),0 100%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);transition:transform .25s}
+.bk-ribbon:hover{transform:translateY(3px)}
+.bk-ribbon.new{animation:bkrib 1.2s ease 2}
+@keyframes bkrib{50%{transform:translateY(5px)}}
+
+/* ---------- 浮层 ---------- */
+.bk-tip{position:absolute;z-index:20;pointer-events:none;background:var(--cre);color:var(--ink);font-size:12.5px;letter-spacing:.12em;padding:3px 10px;border:1px solid rgb(var(--pp-ink-rgb)/.55);box-shadow:0 3px 8px var(--pp-shadow);transform:translate(-50%,-160%);white-space:nowrap;opacity:0;transition:opacity .15s}
+.bk-tip.show{opacity:1}
+.bk-flash{position:absolute;inset:0;z-index:30;pointer-events:none;background:radial-gradient(circle,#fff6d8,rgba(255,240,200,.6) 60%,transparent);opacity:0}
+.bk-flash.go{animation:bkflash 2.2s ease}
+@keyframes bkflash{18%{opacity:.95}100%{opacity:0}}
+/* 通关光点（想换成蝴蝶/花瓣/雪花，改这里即可） */
+.bk-mote{position:absolute;z-index:25;width:18px;height:14px;pointer-events:none}
+.bk-mote::before,.bk-mote::after{content:"";position:absolute;top:0;width:9px;height:13px;background:var(--cv-foil,#d9a83a);border:1px solid rgb(var(--pp-ink-rgb)/.6);border-radius:85% 15% 70% 30%}
+.bk-mote::before{left:0;transform-origin:100% 50%;animation:bkflapL .16s infinite alternate}
+.bk-mote::after{right:0;transform-origin:0 50%;animation:bkflapR .16s infinite alternate;border-radius:15% 85% 30% 70%}
+@keyframes bkflapL{to{transform:scaleX(.25)}}
+@keyframes bkflapR{to{transform:scaleX(.25)}}
+
+/* ---------- SVG 通用 ---------- */
+.bk-hot,.bk-hots *{fill:transparent;pointer-events:all;cursor:pointer}
+.bk-drag{cursor:grab}.bk-drag:active{cursor:grabbing}
+.bk-tag{transform-box:fill-box;transform-origin:50% 0;animation:bktagPop .8s cubic-bezier(.3,1.7,.5,1) both,bktagSwing 4.5s ease-in-out .8s infinite}
+@keyframes bktagPop{from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes bktagSwing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.bk-flick{transform-box:fill-box;transform-origin:50% 100%;animation:bkflick .16s ease-in-out infinite alternate}
+@keyframes bkflick{to{transform:scale(.92,1.08) skewX(3deg)}}
+.bk-blink{transform-box:fill-box;transform-origin:center;animation:bkblink 7s infinite}
+@keyframes bkblink{0%,45%,49%,100%{transform:scaleY(1)}47%{transform:scaleY(.08)}}
+.bk-fade{transition:opacity 1.6s ease}
+.bk-roll{transform-box:fill-box;transform-origin:center;animation:bkroll .28s ease}
+@keyframes bkroll{45%{transform:translateY(-10px);opacity:0}55%{transform:translateY(10px);opacity:0}100%{transform:none;opacity:1}}
+
+/* 拖拽中的物品 / 飞入物品栏的物品（挂在 body 上） */
+.bk-ghost{position:fixed;left:0;top:0;z-index:1000;width:46px;height:46px;pointer-events:none;opacity:0;transition:opacity .2s;filter:drop-shadow(0 4px 4px rgba(40,25,10,.45));color:var(--pp-ink)}
+.bk-ghost.on{opacity:.95}
+.bk-ghost svg,.bk-flyer svg{width:100%;height:100%}
+.bk-flyer{position:fixed;left:0;top:0;width:52px;height:52px;z-index:1001;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(40,25,10,.45));color:var(--pp-ink)}
+
+/* ---------- 移动端 ---------- */
+@media (max-width:767px){
+  .bk-root{min-height:calc(100dvh - 20px)}
+  .bk-wrap{padding:0 10px 10px}
+  .bk-head{height:56px;padding-right:160px;gap:8px}
+  .bk-kicker{display:none}
+  .bk-pip{width:19px;height:24px;font-size:11px}
+  .bk-slot{width:min(38px,9vw);height:44px}
+  .bk-bottom{gap:8px}
+  .bk-inv{gap:5px}
+  .bk-narr{min-height:50px}
+  .bk-narr span{font-size:13.5px}
+  .bk-lined p{font-size:13.5px;line-height:26px}
+  .bk-lined{background:repeating-linear-gradient(to bottom,transparent 0,transparent 25px,rgb(var(--pp-ink-rgb)/.18) 25px,rgb(var(--pp-ink-rgb)/.18) 26px)}
+  .bk-lined li{font-size:13px;line-height:26px}
+  .bk-lined li::before{top:10px}
+}

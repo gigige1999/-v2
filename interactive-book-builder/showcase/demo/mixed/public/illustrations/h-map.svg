@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <pattern id="s" width="18" height="9" patternUnits="userSpaceOnUse"><path d="M0 5q4.5-4 9 0t9 0" fill="none" stroke="#4a3626" stroke-width=".8" opacity=".35"/></pattern>
+    <pattern id="g" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)"><path d="M0 0V5" stroke="#4a3626" stroke-width=".8" opacity=".22"/></pattern>
+  </defs>
+  <rect width="400" height="300" fill="#ddd0b0"/><rect width="400" height="300" fill="url(#s)"/>
+  <path d="M120 0C130 40 104 70 128 98S190 120 182 160 140 210 168 250 230 280 250 300H400V0Z" fill="#ece0c4" stroke="#3b2a1e" stroke-width="2"/>
+  <path d="M120 0C130 40 104 70 128 98S190 120 182 160 140 210 168 250 230 280 250 300H400V0Z" fill="url(#g)"/>
+  <path d="M30 120c12-14 34-14 44 0s-6 30-24 28-28-14-20-28Z" fill="#ece0c4" stroke="#3b2a1e" stroke-width="1.6"/>
+  <path d="M60 230c10-8 24-6 28 4s-8 18-18 16-16-12-10-20Z" fill="#ece0c4" stroke="#3b2a1e" stroke-width="1.4"/>
+  <path d="M400 70C350 80 320 60 290 90S240 120 200 130" fill="none" stroke="#4a3626" stroke-width="1.6"/>
+  <path d="M400 200C360 190 330 210 300 196" fill="none" stroke="#4a3626" stroke-width="1.2"/>
+  <g fill="none" stroke="#3b2a1e" stroke-width="1.3">
+    <path d="M300 30l12-18 12 18M322 34l10-14 10 14M340 30l12-18 12 18"/>
+    <path d="M250 230l10-14 10 14M268 236l8-11 8 11"/>
+  </g>
+  <g fill="#4a3626" opacity=".55"><circle cx="230" cy="40" r="2"/><circle cx="238" cy="46" r="2"/><circle cx="226" cy="50" r="2"/><circle cx="330" cy="150" r="2"/><circle cx="338" cy="144" r="2"/><circle cx="344" cy="156" r="2"/></g>
+  <g font-family="Georgia,serif" font-style="italic" fill="#4a3626" opacity=".7">
+    <text x="22" y="48" font-size="15" letter-spacing="3">MARE GRISEUM</text>
+    <text x="276" y="275" font-size="11" letter-spacing="2">TERRA FIRMA</text>
+  </g>
+  <g transform="translate(46 262)" stroke="#3b2a1e" fill="none" stroke-width="1"><circle r="16"/><path d="M0-22V22M-22 0H22" /><path d="M0-16l4 12-4 4-4-4Z" fill="#3b2a1e"/></g>
+  <rect x="4" y="4" width="392" height="292" fill="none" stroke="#3b2a1e" stroke-width="2.5"/>
+</svg>
