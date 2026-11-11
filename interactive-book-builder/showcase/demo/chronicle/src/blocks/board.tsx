@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { tr } from '../types';
 import { Emblem } from '../components/emblems';
 import type { GraphPage, MapPage } from './types';
-import { Detail, Pin, Stepper, Tabs, colorOf, type BlockProps } from './ui';
+import { Detail, Pin, Stepper, Tabs, colorOf, reveal, type BlockProps } from './ui';
 
 /* 坐标板类：graph 人物关系 / 家谱，map 地图点位 / 路线 —— 共用 Board（底图 + SVG 连线 + 点位） */
 
@@ -61,7 +61,13 @@ export const GraphBlock: React.FC<BlockProps<GraphPage>> = ({ p, lang, Spread })
     <Spread
       left={<div className="space-y-3">
         <Board ratio={tree ? 'aspect-[4/5]' : 'aspect-[5/6]'} lines={links.map(l => ({ a: pos[l.a], b: pos[l.b], dashed: l.dashed, elbow: l.elbow, on: l.a === sel || l.b === sel }))}>
-          {p.nodes.map(n => <Pin key={n.id} x={pos[n.id][0]} y={pos[n.id][1]} n={n.icon || tr(n.title, lang).slice(0, 1)} on={n.id === sel} color={colorOf(p.groups, n.group)} label={tr(n.short || n.title, lang)} onClick={() => setSel(n.id)} />)}
+          {p.nodes.map(n => (
+            <button key={n.id} onClick={() => { setSel(n.id); reveal(); }} className={`gnode ${n.id === sel ? 'on' : ''}`}
+              style={{ left: `${pos[n.id][0]}%`, top: `${pos[n.id][1]}%`, '--c': colorOf(p.groups, n.group) } as React.CSSProperties}>
+              <b>{tr(n.title, lang)}</b>
+              {n.kicker && <small>{tr(n.kicker, lang)}</small>}
+            </button>
+          ))}
         </Board>
         {p.groups && <div className="flex flex-wrap gap-3 text-[11px] font-serif text-ink/70">{p.groups.map(g => <span key={g.id} className="flex items-center gap-1.5"><i className="w-2.5 h-2.5 rounded-full" style={{ background: colorOf(p.groups, g.id) }} />{tr(g.label, lang)}</span>)}</div>}
       </div>}
@@ -76,7 +82,7 @@ export const GraphBlock: React.FC<BlockProps<GraphPage>> = ({ p, lang, Spread })
 
 export const MapBlock: React.FC<BlockProps<MapPage>> = ({ p, lang, Spread }) => {
   const journey = p.variant === 'journey';
-  const [i, setI] = useState(journey ? 0 : -1), [kind, setKind] = useState('');
+  const [i, setI] = useState(0), [kind, setKind] = useState('');
   const shown = p.places.map((e, k) => ({ e, k })).filter(x => !kind || x.e.kind === kind);
   const it = p.places[i];
   return (

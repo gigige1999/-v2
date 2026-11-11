@@ -45,6 +45,8 @@ export default chapter;
 | `text` | 正文，数组表示多段 |
 | `points` | ◆ 要点列表 |
 | `icon` | 徽章 id（rose / crown / seal…，见 themes.md），或单个字符 / emoji |
+| `facts` | **事实卡**：`{ k: '地点', v: '灰港' }` 数组，详情里排成两列小表。历史内容的主力字段 |
+| `source` | 史料出处，显示在详情末尾（小字） |
 
 **Group** `{ id, label, color?, years? }`：用于分组、分类和图例。`color` 不写时按顺序取 accent / sep / 绿 / 蓝 / 金 / 紫。
 
@@ -52,6 +54,10 @@ export default chapter;
 
 | kind | variant | 左页 | 右页 | 关键字段 |
 |---|---|---|---|---|
+| `opener` | `plate` | 满幅插图，左下角压章号 | 章号 / 西文副题 / 大标题 / 导语 / 关键数字条 / 引文 | `chapter`, `latin?`, `image`, `lede?`, `stats?: {n, label}[]`, `quote?` |
+| | `plain` | 巨大章号水印 + 徽章 | 同上 | |
+| `toc` | `plain` | 配图或羽笔装饰 + 说明 | 编号纲要，点条目展开摘要 | `items: (Entry & {page?})[]`, `note?`, `image?` |
+| | `plate` | 同上（有图时） | 同上 | |
 | `text` | `plain` | 配图、引文 | 正文 | `text: T[]`, `image?`, `caption?`, `quote?`, `glossary?` |
 | | `dropcap` | 同上 | 正文，首字下沉 | |
 | | `columns` | 正文前半（首字下沉）+ 配图 | 正文后半 | |
@@ -81,6 +87,8 @@ export default chapter;
 
 | 内容 | 首选 |
 |---|---|
+| 一章的开头 | `opener`（`plate` 有大图，`plain` 是文字扉页） |
+| 本章有哪些内容 / 阅读路线 | `toc`（点条目展开摘要，页码只是标注） |
 | 一段连续叙述 | `text`（dropcap 开篇；columns 用于长文） |
 | 一幅需要讲解的图（城景、器物、画作） | `feature·hotspot` |
 | 年代顺序 | `timeline·rail`；有阶段或王朝时用 `seals`；每个节点都有图时用 `ribbon` |

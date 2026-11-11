@@ -34,7 +34,7 @@ export const Img: React.FC<{ src?: string; className?: string; natural?: boolean
   );
 
 export const Icon: React.FC<{ id?: string; className?: string }> = ({ id, className = 'w-7 h-7' }) =>
-  !id ? null : EMBLEMS[id] ? <Emblem id={id} className={`${className} text-accent`} /> : <span className="text-xl leading-none">{id}</span>;
+  !id ? null : EMBLEMS[id] ? <Emblem id={id} className={`${className} text-accent`} /> : <span className="ico-ch text-xl leading-none">{id}</span>;
 
 export const Paras: React.FC<{ t?: T | T[]; lang: Lang; drop?: boolean }> = ({ t, lang, drop }) => (
   <div className="space-y-4 font-serif text-[15px] md:text-base leading-[1.95] text-ink/90">
@@ -53,12 +53,18 @@ export const Detail: React.FC<{ e?: Entry; lang: Lang; color?: string; compact?:
         <h3 className={`font-display font-bold leading-snug ${compact ? 'text-lg' : 'text-2xl md:text-[1.7rem]'}`}>{tr(e.title, lang)}</h3>
       </header>
       <Paras t={e.text || e.short} lang={lang} />
+      {!!e.facts?.length && (
+        <dl className="dt-facts">
+          {e.facts.map((f, i) => <div key={i}><dt>{tr(f.k, lang)}</dt><dd>{tr(f.v, lang)}</dd></div>)}
+        </dl>
+      )}
       {!!e.points?.length && (
         <ul className="space-y-2 border-t border-ink/10 pt-3 font-serif text-sm">
           {e.points.map((x, i) => <li key={i} className="flex gap-3"><span className="text-accent text-[10px] mt-1.5">◆</span><span>{tr(x, lang)}</span></li>)}
         </ul>
       )}
       {e.quote && <blockquote className="border-l-2 border-accent/60 pl-4 font-serif italic opacity-85">{tr(e.quote.text, lang)}{e.quote.source && <footer className="mt-1 text-xs not-italic opacity-60">{tr(e.quote.source, lang)}</footer>}</blockquote>}
+      {e.source && <p className="dt-src">{tr(e.source, lang)}</p>}
       {children}
     </article>
   );

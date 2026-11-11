@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Interaction Book Builder · 案例与素材</title>
+<title>Interactive Book Builder · 主题、组件与案例</title>
 <style>
   :root{
     --paper:#ece5d7; --paper2:#f7f2e7; --ink:#2a241f; --ink2:#5c534a; --line:#cfc4b0;
@@ -15,607 +15,429 @@
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;
-    background-image:radial-gradient(circle at 20% 0%,rgba(122,43,51,.05),transparent 45%),radial-gradient(circle at 90% 10%,rgba(168,130,63,.07),transparent 40%);}
+    background-image:radial-gradient(circle at 18% 0%,rgba(122,43,51,.05),transparent 45%),radial-gradient(circle at 92% 8%,rgba(168,130,63,.07),transparent 40%)}
   a{color:var(--wine);text-decoration:none;border-bottom:1px solid rgba(122,43,51,.3)}
   a:hover{border-bottom-color:var(--wine)}
   code{font-family:var(--mono);font-size:.88em;background:rgba(42,36,31,.07);padding:.1em .35em;border-radius:3px}
 
-  /* ---------- 侧栏目录 ---------- */
-  aside{position:fixed;left:0;top:0;bottom:0;width:236px;padding:34px 22px;border-right:1px solid var(--line);
-    background:rgba(247,242,231,.72);backdrop-filter:blur(8px);overflow-y:auto;z-index:5}
-  aside .brand{font-family:var(--serif);font-size:15px;letter-spacing:.18em;line-height:1.5;color:var(--wine)}
-  aside .brand small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.28em;color:var(--ink2);text-transform:uppercase;margin-top:6px}
-  aside nav{margin-top:26px;font-size:13px}
-  aside nav a{display:block;padding:6px 0 6px 10px;border:0;border-left:2px solid transparent;color:var(--ink2);letter-spacing:.03em}
+  aside{position:fixed;left:0;top:0;bottom:0;width:228px;padding:32px 20px;border-right:1px solid var(--line);
+    background:rgba(247,242,231,.74);backdrop-filter:blur(8px);overflow-y:auto;z-index:5}
+  aside .brand{font-family:var(--serif);font-size:15px;letter-spacing:.18em;color:var(--wine);line-height:1.5}
+  aside .brand small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.26em;color:var(--ink2);text-transform:uppercase;margin-top:6px}
+  aside nav{margin-top:24px;font-size:13px}
+  aside nav a{display:block;padding:6px 0 6px 10px;border:0;border-left:2px solid transparent;color:var(--ink2)}
   aside nav a:hover{color:var(--ink);border-left-color:var(--gold)}
-  aside nav a b{display:inline-block;width:20px;font-family:var(--serif);color:var(--gold);font-weight:400}
-  aside .meta{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--ink2);letter-spacing:.05em;line-height:1.9}
+  aside nav a b{display:inline-block;width:18px;font-family:var(--serif);color:var(--gold);font-weight:400}
+  aside .meta{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--ink2);line-height:1.9}
 
-  main{margin-left:236px;padding:0 0 90px}
-
-  /* ---------- 首屏 ---------- */
-  header.hero{background:var(--dark);color:#efe6d6;padding:64px 56px 52px;position:relative;overflow:hidden}
-  header.hero::after{content:"";position:absolute;inset:18px;border:1px solid rgba(168,130,63,.45);pointer-events:none}
+  main{margin-left:228px;padding-bottom:80px}
+  header.hero{background:var(--dark);color:#efe6d6;padding:60px 52px 48px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;inset:16px;border:1px solid rgba(168,130,63,.45);pointer-events:none}
   .hero .kicker{font-family:var(--serif);font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold)}
-  .hero h1{font-family:var(--serif);font-size:clamp(30px,4.6vw,50px);line-height:1.25;margin:14px 0 10px;letter-spacing:.06em;font-weight:700}
+  .hero h1{font-family:var(--serif);font-size:clamp(28px,4.4vw,48px);line-height:1.25;margin:14px 0 10px;letter-spacing:.05em}
   .hero h1 em{color:var(--gold);font-style:normal}
-  .hero p{max-width:640px;color:#c9bfad;margin:0;font-size:14.5px;line-height:1.9}
-  .hero .tags{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px}
-  .hero .tags span{font-size:11px;letter-spacing:.14em;padding:4px 11px;border:1px solid rgba(201,191,173,.35);border-radius:999px;color:#ddd3c0}
+  .hero p{max-width:660px;color:#c9bfad;margin:0;font-size:14.5px;line-height:1.9}
+  .hero .tags{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}
+  .hero .tags span{font-size:11px;letter-spacing:.12em;padding:4px 11px;border:1px solid rgba(201,191,173,.35);border-radius:999px;color:#ddd3c0}
 
-  section{padding:52px 56px 0;scroll-margin-top:20px}
-  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:26px}
+  section{padding:48px 52px 0;scroll-margin-top:16px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px}
   .sec-head b{font-family:var(--serif);font-size:13px;letter-spacing:.2em;color:var(--gold);font-weight:400}
-  .sec-head h2{font-family:var(--serif);font-size:clamp(22px,2.4vw,29px);margin:0;letter-spacing:.08em}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(21px,2.3vw,28px);margin:0;letter-spacing:.07em}
   .sec-head span{margin-left:auto;font-size:12px;color:var(--ink2)}
-  .lead{max-width:760px;color:var(--ink2);margin:-8px 0 26px;font-size:14.5px}
+  .lead{max-width:780px;color:var(--ink2);margin:-6px 0 22px;font-size:14.5px}
+  h3.sub{font-family:var(--serif);font-size:16px;margin:28px 0 12px;letter-spacing:.05em;display:flex;align-items:baseline;gap:10px}
+  h3.sub i{font-family:var(--sans);font-style:normal;font-size:11px;letter-spacing:.16em;color:var(--ink2);text-transform:uppercase}
 
-  /* ---------- 表格 ---------- */
   table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--paper2);box-shadow:0 1px 0 var(--line)}
-  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-family:var(--serif);font-size:12px;letter-spacing:.14em;color:var(--ink2);font-weight:700;background:rgba(207,196,176,.22)}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--serif);font-size:12px;letter-spacing:.12em;color:var(--ink2);background:rgba(207,196,176,.22)}
   td code{white-space:nowrap}
+  tr.cat td{background:rgba(168,130,63,.12);font-family:var(--serif);font-size:12px;letter-spacing:.14em;color:var(--wine);padding:6px 12px}
   .tbl-wrap{overflow-x:auto}
 
-  /* ---------- 封面墙 ---------- */
-  .covers{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-  .covers figure{margin:0;background:var(--paper2);border:1px solid var(--line);padding:10px;box-shadow:0 3px 12px rgba(42,36,31,.07)}
+  /* 主题色卡 */
+  .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:12px}
+  .sw-cv{aspect-ratio:3/4;border-radius:2px 5px 5px 2px;background:linear-gradient(135deg,var(--b2),var(--b));border-left:5px solid rgba(0,0,0,.4);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative;overflow:hidden;
+    box-shadow:0 6px 14px rgba(0,0,0,.22)}
+  .sw-cv i{position:absolute;inset:5px;border:1px solid color-mix(in srgb,var(--f) 48%,transparent)}
+  .sw-cv b{font-family:'Playfair Display',serif;font-size:10.5px;letter-spacing:.1em;color:var(--f);z-index:1;text-align:center;line-height:1.3}
+  .sw-cv small{font-size:9px;color:rgba(255,255,255,.5);z-index:1}
+  .sw-pp{aspect-ratio:3/4;background:var(--b);border:1px solid rgba(0,0,0,.12);padding:9px 8px;display:flex;flex-direction:column;gap:4px;
+    box-shadow:0 3px 10px rgba(0,0,0,.12)}
+  .sw-pp b{font-family:var(--serif);font-size:10.5px;color:var(--k);line-height:1.3}
+  .sw-pp small{font-size:9px;color:var(--k);opacity:.5}
+  .sw-pp em{display:block;height:1px;background:var(--k);opacity:.3}
+  .sw-pp i{width:16px;height:3px;background:var(--a);margin-top:auto;display:block}
+
+  /* 图片 */
+  .covers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .covers figure{margin:0;background:var(--paper2);border:1px solid var(--line);padding:9px;box-shadow:0 3px 12px rgba(42,36,31,.07)}
   .covers img{width:100%;display:block;border:1px solid rgba(42,36,31,.12)}
-  .covers figcaption{font-size:12px;color:var(--ink2);padding:9px 2px 0;line-height:1.6}
-  .covers figcaption b{color:var(--ink);font-family:var(--serif);letter-spacing:.06em}
+  .covers figcaption{font-size:12px;color:var(--ink2);padding:8px 2px 0;line-height:1.65}
+  .covers figcaption b{color:var(--ink);font-family:var(--serif);letter-spacing:.04em}
 
-  /* ---------- 组件卡 ---------- */
-  .blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:26px}
-  .blk{background:var(--paper2);border:1px solid var(--line);box-shadow:0 3px 14px rgba(42,36,31,.06);display:flex;flex-direction:column;overflow:hidden}
-  .blk .shot{border-bottom:1px solid var(--line);background:#ded5c3;position:relative}
+  .blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:22px;align-items:start}
+  .phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;align-items:start}
+  .phones .blk .body{padding:12px 14px 14px}
+  .phones .blk h4{font-size:15px}
+  .blk{background:var(--paper2);border:1px solid var(--line);box-shadow:0 3px 14px rgba(42,36,31,.06);overflow:hidden;display:flex;flex-direction:column}
+  .blk .shot{position:relative;background:#ded5c3;border-bottom:1px solid var(--line)}
   .blk .shot img{width:100%;display:block}
-  .blk .shot .no{position:absolute;left:0;top:0;background:var(--wine);color:#f2e9d8;font-family:var(--serif);font-size:11px;
-    letter-spacing:.14em;padding:4px 10px}
-  .blk .body{padding:16px 18px 18px}
-  .blk h3{font-family:var(--serif);font-size:18px;margin:0 0 4px;letter-spacing:.05em;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-  .blk h3 code{font-size:11.5px;letter-spacing:.02em;background:rgba(122,43,51,.09);color:var(--wine);padding:2px 7px;border-radius:3px}
-  .blk p{margin:8px 0 12px;font-size:13.5px;color:var(--ink2);line-height:1.8}
-  .blk pre{margin:0;background:var(--dark);color:#ddd3c0;padding:13px 15px;overflow-x:auto;font-size:11.5px;line-height:1.7;border-radius:2px}
-  .blk pre b{color:var(--gold);font-weight:400}
-  .blk pre i{color:#8d8477;font-style:normal}
+  .blk .shot .no{position:absolute;left:0;top:0;background:var(--wine);color:#f2e9d8;font-family:var(--serif);font-size:11px;letter-spacing:.14em;padding:4px 10px}
+  .blk .body{padding:14px 17px 17px}
+  .blk h4{font-family:var(--serif);font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .blk h4 code{font-size:11px;background:rgba(122,43,51,.09);color:var(--wine);padding:2px 6px;border-radius:3px}
+  .blk p{margin:6px 0 0;font-size:13.5px;color:var(--ink2)}
 
-  /* ---------- 素材区 ---------- */
-  .assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:22px}
-  .assets figure{margin:0;background:var(--paper2);border:1px solid var(--line);padding:12px;text-align:center}
-  .assets img{max-width:100%;max-height:420px;display:block;margin:0 auto;border:1px solid rgba(42,36,31,.15)}
-  .assets figcaption{font-size:12px;color:var(--ink2);margin-top:10px;line-height:1.6}
-  .files{font-family:var(--mono);font-size:12.5px;background:var(--paper2);border:1px solid var(--line);padding:16px 18px;line-height:2;overflow-x:auto}
-  .files b{color:var(--wine);font-weight:400}
+  pre{margin:12px 0 0;background:var(--dark);color:#ddd3c0;padding:13px 15px;overflow-x:auto;font-size:11.5px;line-height:1.7;border-radius:2px}
+  pre b{color:var(--gold);font-weight:400}
+  pre i{color:#8d8477;font-style:normal}
 
   .note{border-left:3px solid var(--wine);background:rgba(122,43,51,.06);padding:13px 18px;font-size:13.5px;color:var(--ink2);margin:20px 0}
   .note b{color:var(--ink)}
-
+  .files{font-family:var(--mono);font-size:12.5px;background:var(--paper2);border:1px solid var(--line);padding:16px 18px;line-height:2;overflow-x:auto}
+  .files b{color:var(--wine);font-weight:400}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-  ul.list{margin:8px 0 0;padding-left:18px;color:var(--ink2);font-size:13.5px;line-height:1.95}
+  ul.list{margin:6px 0 0;padding-left:18px;color:var(--ink2);font-size:13.5px;line-height:1.95}
   ul.list li::marker{color:var(--gold)}
-
-  footer{margin:64px 56px 0;padding-top:18px;border-top:1px solid var(--line);color:var(--ink2);font-size:12px;display:flex;gap:16px;flex-wrap:wrap}
+  footer{margin:56px 52px 0;padding-top:16px;border-top:1px solid var(--line);color:var(--ink2);font-size:12px;display:flex;gap:16px;flex-wrap:wrap}
 
   @media (max-width:1000px){
-    aside{position:sticky;top:0;width:auto;height:auto;padding:12px 18px 8px;border-right:0;border-bottom:1px solid var(--line);
-      display:block;background:rgba(247,242,231,.95);backdrop-filter:blur(10px)}
-    aside .brand{font-size:11px;letter-spacing:.16em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    aside .brand small{display:inline;margin:0 0 0 8px;font-size:9px;letter-spacing:.2em}
-    aside nav{display:flex;gap:2px;margin:8px 0 0;font-size:12px;white-space:nowrap;overflow-x:auto;padding-bottom:4px}
-    aside nav a{padding:3px 9px 5px;border-left:0;border-bottom:2px solid transparent}
-    aside nav a b{width:auto;margin-right:4px;font-size:11px}
+    aside{position:sticky;top:0;width:auto;padding:10px 16px 6px;border-right:0;border-bottom:1px solid var(--line);background:rgba(247,242,231,.96);backdrop-filter:blur(10px)}
+    aside .brand{font-size:10.5px;letter-spacing:.14em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    aside .brand small{display:inline;margin-left:8px;font-size:9px}
+    aside nav{display:flex;gap:2px;margin:6px 0 0;font-size:12px;white-space:nowrap;overflow-x:auto;padding-bottom:2px}
+    aside nav a{padding:3px 9px;border-left:0;border-bottom:2px solid transparent}
+    aside nav a b{width:auto;margin-right:3px;font-size:10px}
     aside .meta{display:none}
     main{margin-left:0}
-    header.hero,section{padding-left:22px;padding-right:22px}
-    .cols2{grid-template-columns:1fr}
+    header.hero,section{padding-left:20px;padding-right:20px}
     .blocks{grid-template-columns:1fr}
-    footer{margin-left:22px;margin-right:22px}
+    .cols2{grid-template-columns:1fr}
+    footer{margin-left:20px;margin-right:20px}
   }
 </style>
 </head>
 <body>
 
 <aside>
-  <div class="brand">Interactive Book Builder<small>Cases &amp; Assets</small></div>
+  <div class="brand">Interactive Book Builder<small>Theme · Blocks · Cases</small></div>
   <nav>
-    <a href="#overview"><b>0</b>概览</a>
-    <a href="#cover"><b>1</b>封面</a>
-    <a href="#shell"><b>2</b>外壳与跨页</a>
-    <a href="#blocks"><b>3</b>内页组件</a>
-    <a href="#assets"><b>4</b>完整素材</a>
+    <a href="#theme"><b>1</b>主题与封面</a>
+    <a href="#blocks"><b>2</b>组件总览</a>
+    <a href="#cases"><b>3</b>案例</a>
+    <a href="#assets"><b>4</b>素材</a>
     <a href="#reuse"><b>5</b>复用</a>
   </nav>
-  <div class="meta">
-    示例书：灰港编年史<br>
-    两章共 20 个跨页<br>
-    40 张实机截图
-  </div>
+  <div class="meta">示例书：灰港编年史<br>10 种组件 / 22 种样式<br>32 张实机截图</div>
 </aside>
 
 <main>
 <header class="hero">
   <div class="kicker">Interactive Book Builder · Showcase</div>
-  <h1>一本书的两种活法：<br><em>解谜</em> 与 <em>翻阅</em></h1>
-  <p>这个 skill 能生成两种交互书。左边是《百年孤独》式的解谜书，每章两关；右边是历史图文书，每章若干跨页，8 种内页组件、20 种交互样式。下面这本虚构的《灰港编年史》就是图文书的全量示例，所有截图都来自真实构建产物。</p>
+  <h1>一本书的两种活法：<em>解谜</em> 与 <em>翻阅</em></h1>
+  <p>同一条命令可以生成两类交互书：解谜书（每章两关）与历史图文书（每章若干跨页）。下面把主题配色、全部内页组件的用法、以及真实构建出来的案例放在一起——选主题 → 挑组件 → 照着案例写。</p>
   <div class="tags">
-    <span>React + Vite + TypeScript</span><span>3 种封面版式</span><span>11 种徽章</span>
-    <span>10 套封面配色 × 10 套纸张</span><span>8 种内页组件</span><span>桌面 + 手机</span>
+    <span>React + Vite + TS</span><span>3 种封面版式</span><span>11 种徽章</span>
+    <span>10 套封面 × 10 套纸张</span><span>10 种组件 / 22 种样式</span><span>桌面 + 手机</span>
   </div>
 </header>
 
-<section id="overview">
-  <div class="sec-head"><b>0</b><h2>两种书型</h2><span>先问类型，再生成</span></div>
-  <p class="lead">同一条 <code>new_book.py</code> 命令，用 <code>--type</code> 决定章节形态。两本书的工程结构完全一致，所以同一本书里也可以混用两种章节。</p>
-  <div class="tbl-wrap">
-  <table>
-    <tr><th style="width:110px">类型</th><th>章节形态</th><th>每章内容</th><th>适合</th></tr>
-    <tr>
-      <td><code>puzzle</code><br>解谜书</td>
-      <td><code>meta</code> + <code>Classic.tsx</code> + <code>spec.js</code> + <code>art.js</code></td>
-      <td>第一关：2 分钟的 React 小游戏<br>第二关：书页引擎，拾取 / 组合 / 特写翻页 / 两级提示</td>
-      <td>小说、名著、悬疑故事改成的可玩电子书</td>
-    </tr>
-    <tr>
-      <td><code>history</code><br>历史图文书</td>
-      <td><code>meta</code> + <code>pages: Page[]</code>（纯数据）</td>
-      <td>6~12 个跨页，每页选一种组件：时间线、卡片、地图、家谱、对比、热点图、小测……</td>
-      <td>历史、文明、人物、图鉴、编年史</td>
-    </tr>
-  </table>
-  </div>
-  <div class="note">
-    <b>命令。</b>解谜书：<code>new_book.py &lt;目录&gt; --type puzzle --title 书名 --cover leather --paper parchment</code>；
-    图文书：<code>new_book.py &lt;目录&gt; --type history --title 灰港编年史 --layout heraldic --emblem crown --cover wine --paper vellum</code>。
-    地址栏加 <code>?cover=&amp;paper=&amp;layout=&amp;emblem=</code> 可临时预览封面。
-  </div>
-</section>
+<!-- ================= 1 主题 ================= -->
+<section id="theme">
+  <div class="sec-head"><b>1</b><h2>主题与封面</h2><span>命令行一行切换</span></div>
+  <p class="lead">封面配色（<code>cover</code>）和纸张（<code>paper</code>）互相独立，可以任意组合；封面版式（<code>coverLayout</code>）和徽章（<code>emblem</code>）再各选一个。地址栏加 <code>?cover=wine&amp;paper=vellum&amp;layout=emblem&amp;emblem=rose</code> 可临时预览。</p>
 
-<section id="cover">
-  <div class="sec-head"><b>1</b><h2>封面：版式 × 徽章 × 配色</h2><span>5 个实机样本</span></div>
-  <p class="lead">三种版式分别来自三个参考项目：<code>classic</code> 是《百年孤独》的烫金精装书，<code>heraldic</code> 是《玫瑰战争》斜放的纹章合拢书（点击会翻开），<code>emblem</code> 是《Vikings》那种书名在书外、书面只有烫金西文大字和徽章的手抄本。</p>
-  <div class="covers">
-    <figure><img src="shots/cover-heraldic.jpg" alt="heraldic 版式"><figcaption><b>heraldic · crown · wine</b><br>斜放的合拢书，书页厚度、丝带书签、✧ 细框。历史书默认。</figcaption></figure>
-    <figure><img src="shots/cover-emblem-rose.jpg" alt="emblem 版式 都铎玫瑰"><figcaption><b>emblem · rose · wine</b><br>书名在书外，书面是烫金大字 + 都铎玫瑰 + 罗马年份。</figcaption></figure>
-    <figure><img src="shots/cover-emblem-longship.jpg" alt="emblem 版式 长船"><figcaption><b>emblem · longship · umber/linen</b><br>同样的版式换成北境配色与日轮长船，就是一本书的另一副面孔。</figcaption></figure>
-    <figure><img src="shots/cover-classic-seal.jpg" alt="classic 版式"><figcaption><b>classic · seal · wine</b><br>烫金双框 + 四角，居中书名，作者名下方配小徽章。解谜书默认。</figcaption></figure>
-    <figure><img src="shots/cover-heraldic-boar.jpg" alt="heraldic 野猪徽章"><figcaption><b>heraldic · boar · umber</b><br>11 种徽章随配色换色：<code>.em-a</code> 取封面主色，其余描边取烫金色。</figcaption></figure>
-    <figure><img src="shots/cover-puzzle-classic.jpg" alt="解谜书封面"><figcaption><b>puzzle · classic · leather/parchment</b><br>解谜书的原版封面，说明两套外壳共用同一份封面配置。</figcaption></figure>
+  <h3 class="sub">封面配色 <i>10</i></h3>
+  <div class="sw">
+    <div class="sw-cv" style="--b:#241c18;--b2:#33261d;--f:#d39b3e"><i></i><b>leather</b><small>古典皮革</small></div>
+    <div class="sw-cv" style="--b:#1b2440;--b2:#26325a;--f:#d9c48a"><i></i><b>midnight</b><small>午夜蓝</small></div>
+    <div class="sw-cv" style="--b:#4a1620;--b2:#62202c;--f:#e3b45f"><i></i><b>burgundy</b><small>酒红丝绒</small></div>
+    <div class="sw-cv" style="--b:#1f3a2e;--b2:#2b4c3c;--f:#d8c27a"><i></i><b>forest</b><small>墨绿布面</small></div>
+    <div class="sw-cv" style="--b:#ece3cf;--b2:#f6efdf;--f:#8a5a2b"><i></i><b>ivory</b><small>象牙白</small></div>
+    <div class="sw-cv" style="--b:#141210;--b2:#22201c;--f:#e6c46a"><i></i><b>ebony</b><small>黑金</small></div>
+    <div class="sw-cv" style="--b:#0f4a4f;--b2:#17636a;--f:#e9d7a5"><i></i><b>celadon</b><small>青瓷</small></div>
+    <div class="sw-cv" style="--b:#a95f69;--b2:#c27a83;--f:#fff1d6"><i></i><b>rouge</b><small>胭脂粉</small></div>
+    <div class="sw-cv" style="--b:#5b1d29;--b2:#772c39;--f:#c0a475"><i></i><b>wine</b><small>玫瑰酒红</small></div>
+    <div class="sw-cv" style="--b:#24190f;--b2:#4a3520;--f:#d4b073"><i></i><b>umber</b><small>维京皮革</small></div>
   </div>
+
+  <h3 class="sub">内页纸张 <i>10</i></h3>
+  <div class="sw">
+    <div class="sw-pp" style="--b:#f2e8cf;--k:#2b1d12;--a:#8a3a28"><b>parchment</b><small>羊皮纸</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#f7f4ec;--k:#1e1e22;--a:#b22a24"><b>rice</b><small>宣纸</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#dcc097;--k:#2e1c0c;--a:#802212"><b>kraft</b><small>牛皮纸</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#efe1bd;--k:#3a2818;--a:#843c1c"><b>foxed</b><small>旧书泛黄</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#e6ece2;--k:#1c302c;--a:#9c4230"><b>celadon</b><small>青笺</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#e9e7e2;--k:#1c1c1c;--a:#842828"><b>ash</b><small>素灰</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#f6e7e2;--k:#4c262e;--a:#b24454"><b>blossom</b><small>桃花笺</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#f5f2e9;--k:#1a284e;--a:#a83028"><b>letter</b><small>蓝墨信笺</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#f0e6ce;--k:#342e26;--a:#641f2a"><b>vellum</b><small>手抄羊皮</small><em></em><em></em><i></i></div>
+    <div class="sw-pp" style="--b:#f3ead7;--k:#2a2017;--a:#7d1d18"><b>linen</b><small>北境手稿</small><em></em><em></em><i></i></div>
+  </div>
+
+  <h3 class="sub">三种版式 <i>coverLayout</i></h3>
+  <div class="covers">
+    <figure><img src="shots/cover-heraldic.jpg" alt="heraldic"><figcaption><b>heraldic · crown · wine</b><br>斜放合拢书，可见书页厚度与丝带书签，点击翻开。历史书默认。</figcaption></figure>
+    <figure><img src="shots/cover-emblem-rose.jpg" alt="emblem rose"><figcaption><b>emblem · rose · wine</b><br>书名在书外，书面是烫金西文大字 + 纹章 + 罗马年份。</figcaption></figure>
+    <figure><img src="shots/cover-classic-seal.jpg" alt="classic"><figcaption><b>classic · seal · wine</b><br>烫金双框与四角，居中书名，作者下方配小徽章。解谜书默认。</figcaption></figure>
+    <figure><img src="shots/cover-emblem-longship.jpg" alt="emblem longship"><figcaption><b>emblem · longship · umber/linen</b><br>同一版式换北境配色，就是另一本书。</figcaption></figure>
+    <figure><img src="shots/cover-heraldic-boar.jpg" alt="heraldic boar"><figcaption><b>heraldic · boar · umber</b><br>徽章随配色换色：主色块取封面主色，描边取烫金。</figcaption></figure>
+    <figure><img src="shots/cover-puzzle-classic.jpg" alt="puzzle"><figcaption><b>解谜书 · leather/parchment</b><br>两套外壳共用同一份封面配置，加 <code>--type puzzle</code> 即可。</figcaption></figure>
+  </div>
+
   <div class="cols2" style="margin-top:26px">
     <div>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:0 0 8px">徽章库</h3>
+      <h3 class="sub">徽章 <i>11</i></h3>
       <ul class="list">
-        <li><code>rose</code> 都铎玫瑰（大图，移植自《玫瑰战争》）</li>
-        <li><code>longship</code> 日轮长船（大图，移植自《Vikings》）</li>
-        <li><code>crown</code> <code>lily</code> <code>sun</code> <code>key</code> <code>feather</code> <code>seal</code> <code>boar</code> <code>compass</code> <code>candle</code>：48×48 图形，外套勋章环</li>
+        <li><code>rose</code> 都铎玫瑰 · <code>longship</code> 日轮长船（两张完整大图）</li>
+        <li><code>crown</code> <code>lily</code> <code>sun</code> <code>key</code> <code>feather</code> <code>seal</code> <code>boar</code> <code>compass</code> <code>candle</code>：勋章环小图</li>
+        <li>新增：48×48 path 进 <code>SHAPES</code>，或 <code>{ vb, svg }</code> 进 <code>EMBLEMS</code></li>
       </ul>
     </div>
     <div>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:0 0 8px">封面文字</h3>
+      <h3 class="sub">推荐搭配</h3>
       <ul class="list">
-        <li><code>kicker</code> 顶部小字 · <code>motto</code> 标题下小字</li>
-        <li><code>latin</code> 西文大字（emblem 版式按字数自动缩字号）</li>
-        <li><code>era</code> 年代 · <code>prompt</code> 轻触提示</li>
+        <li>历史 / 王朝：<code>wine + vellum + heraldic + rose</code></li>
+        <li>北欧 / 远征：<code>umber + linen + emblem + longship</code></li>
+        <li>古典文学：<code>leather + parchment + classic + compass</code></li>
+        <li>东方 / 水墨：<code>ivory + rice + classic + lily</code></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="shell">
-  <div class="sec-head"><b>2</b><h2>外壳：目录、跨页与翻页</h2><span>桌面 + 手机</span></div>
-  <p class="lead">图文章不需要写布局：组件只声明「左页放什么、右页放什么」，<code>PagedChapter</code> 负责页眉、翻页栏、页码存档和手机端的上下堆叠。点选条目后，手机端会自动把详情滚进视野。</p>
-  <div class="covers">
-    <figure><img src="shots/hist-toc.jpg" alt="目录"><figcaption><b>目录</b>左页书名与题记，右页章节列表。历史书默认 <code>unlock: open</code>，全部章节直接可点。</figcaption></figure>
-    <figure><img src="shots/m-toc.jpg" alt="手机目录"><figcaption><b>手机 · 目录</b>单栏上下排列，页脚保留「返回封面」。</figcaption></figure>
-    <figure><img src="shots/m1-02.jpg" alt="手机跨页"><figcaption><b>手机 · 热点页</b>左右页改为上下：先图后详情，点编号自动滚到详情。</figcaption></figure>
-    <figure><img src="shots/m1-03.jpg" alt="手机时间线"><figcaption><b>手机 · 时间线</b>导航在上、详情在下，翻页栏吸底。</figcaption></figure>
-    <figure><img src="shots/h1-finish.jpg" alt="本章终"><figcaption><b>本章终</b>读到最后一页点「读完本章」。有 <code>meta.excerpt</code> 的章节会先播放摘录过场，没有就直接收尾。</figcaption></figure>
-    <figure><img src="shots/p-ch1.jpg" alt="解谜章"><figcaption><b>解谜章外壳</b>同一个 App 里的解谜章节：左页插图 + 导读，右页第一关小游戏。</figcaption></figure>
-  </div>
-</section>
-
+<!-- ================= 2 组件总览 ================= -->
 <section id="blocks">
-  <div class="sec-head"><b>3</b><h2>内页组件：8 种 × 20 种样式</h2><span>全部来自示例书 ch1、ch2</span></div>
-  <p class="lead">每张卡片是一页真实的跨页：左图是实机截图，右下的代码是该页在 <code>index.ts</code> 里的实际写法（省略了部分文案）。字段完整表见 <code>references/blocks.md</code>。</p>
-
-  <div class="blocks">
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 01</span><img src="shots/h1-01.jpg" alt="text dropcap"></div>
-      <div class="body">
-        <h3>正文 · 首字下沉 <code>text · dropcap</code></h3>
-        <p>长文阅读的默认形态。左页放配图和引文，右页正文首字下沉。<code>glossary</code> 里的词在正文中变红，点按在右页顶部浮出释义。</p>
-<pre><b>kind</b>: 'text', <b>variant</b>: 'dropcap',
-<b>title</b>: '潮水之城',
-<b>image</b>: 'illustrations/h-town.svg',
-<b>quote</b>: { text: '城是海借给人的。', source: '—— 港务簿扉页' },
-<b>glossary</b>: { '潮汐': '海水每日两涨两落……' },
-<b>text</b>: ['灰港最早只是滩涂上几间晒盐的棚屋……', …]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 02</span><img src="shots/h1-02.jpg" alt="feature hotspot"></div>
-      <div class="body">
-        <h3>图文 · 热点 <code>feature · hotspot</code></h3>
-        <p>一幅要讲解的图（城景、器物、画作）。<code>spots</code> 的 <code>x</code>/<code>y</code> 是原图上的百分比，点编号后右页换成该处的注释。图按原比例显示，所以坐标永远准。</p>
-<pre><b>kind</b>: 'feature', <b>variant</b>: 'hotspot',
-<b>image</b>: 'illustrations/h-town.svg',
-<b>spots</b>: [
-  { x: 13, y: 40, title: '岬角灯塔', text: '1352 年建成，烧鲸油。' },
-  { x: 50, y: 17, title: '圣灯大教堂', … },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 03</span><img src="shots/h1-03.jpg" alt="timeline rail"></div>
-      <div class="body">
-        <h3>时间线 · 竖排 <code>timeline · rail</code></h3>
-        <p>年代顺序的首选。左页是带圆点的里程碑，右页展开详情，也可以用 ‹ › 逐条翻。<code>kicker</code> 写年份。</p>
-<pre><b>kind</b>: 'timeline', <b>variant</b>: 'rail',
-<b>items</b>: [
-  { kicker: '1104', title: '盐棚', text: '…', image: '…' },
-  { kicker: '1268', title: '城墙合拢', points: ['城门七座', '水门两座'] },
-  { kicker: '1417', title: '大潮之年', quote: { text: '水到了教堂第三级台阶。' } },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 04</span><img src="shots/h1-04.jpg" alt="cards grid"></div>
-      <div class="body">
-        <h3>分类卡片 · 网格 <code>cards · grid</code></h3>
-        <p>一组同类事物（职业、兵种、食物、建筑）。<code>cats</code> 生成上方筛选标签，卡片用 <code>icon</code> + 标题 + 一句话；选中的卡片在右页展开详情。</p>
-<pre><b>kind</b>: 'cards', <b>variant</b>: 'grid',
-<b>cats</b>: [{ id: 'sea', label: '海上' }, { id: 'land', label: '岸上' }],
-<b>items</b>: [
-  { cat: 'sea', icon: '⚓', title: '船长', short: '按潮汐出海', text: '…' },
-  { cat: 'pen', icon: 'feather', title: '港务书记', short: '写下一切' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 05</span><img src="shots/h1-05.jpg" alt="compare tabs"></div>
-      <div class="body">
-        <h3>分期对比 · 切换 <code>compare · tabs</code></h3>
-        <p>同一处地方在不同时期的样子。左页用蜡封按钮切换分期，图上还能再叠一层编号点；右页是当前分期的说明。</p>
-<pre><b>kind</b>: 'compare', <b>variant</b>: 'tabs',
-<b>eras</b>: [
-  { icon: 'Ⅱ', kicker: '城墙期', title: '1250—1420',
-    image: 'illustrations/h-town.svg',
-    spots: [{ x: 13, y: 40, title: '灯塔', text: '1352 年点亮。' }] },
-  { icon: 'Ⅲ', kicker: '远航期', points: ['防波堤两道'] },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 06</span><img src="shots/h1-06.jpg" alt="graph tree"></div>
-      <div class="body">
-        <h3>家谱 <code>graph · tree</code></h3>
-        <p>只写 <code>parent</code>，布局自动分层、父节点居中于子节点、直角连线。点人物看生平，右页底部列出亲属，可沿关系继续跳。</p>
-<pre><b>kind</b>: 'graph', <b>variant</b>: 'tree',
-<b>nodes</b>: [
-  { id: 'a', title: '老奥斯', kicker: '1310—1371' },
-  { id: 'b', parent: 'a', title: '马伦', kicker: '1338—1402' },
-  { id: 'c', parent: 'a', title: '艾达', … },
-],
-<b>groups</b>: [{ id: 'keep', label: '守塔人' }, { id: 'kin', label: '亲族' }]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 07</span><img src="shots/h1-07.jpg" alt="map pins"></div>
-      <div class="body">
-        <h3>地图 · 点位 <code>map · pins</code></h3>
-        <p>地点分布。<code>kinds</code> 生成图例筛选，<code>x</code>/<code>y</code> 是底图上的百分比。不写 <code>image</code> 时组件会画纸面经纬网和罗盘，没有地图素材也能用。</p>
-<pre><b>kind</b>: 'map', <b>variant</b>: 'pins',
-<b>image</b>: 'illustrations/h-map.svg',
-<b>kinds</b>: [{ id: 'town', label: '城镇' }, { id: 'sea', label: '海上' }],
-<b>places</b>: [
-  { x: 44, y: 54, kind: 'town', icon: '★', title: '灰港', text: '…' },
-  { x: 13, y: 44, kind: 'sea', title: '鸥岛' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.1 · 08</span><img src="shots/h1-08.jpg" alt="quiz choice"></div>
-      <div class="body">
-        <h3>小测 · 单选 <code>quiz · choice</code></h3>
-        <p>章末回顾。选错会抖动并解释为什么错，选对显示解析。最后一页的按钮是「读完本章」。</p>
-<pre><b>kind</b>: 'quiz', <b>variant</b>: 'choice',
-<b>question</b>: '灰港的城门按什么来开闭？',
-<b>options</b>: [
-  { text: '教堂的钟声', why: '钟声只在雾天报时。' },
-  { text: '潮汐表', ok: true },
-  { text: '日出日落', why: '港城跟着水，而不是太阳。' },
-],
-<b>explain</b>: '城门、市集、出海，全部按潮汐表安排。'</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 01</span><img src="shots/h2-01.jpg" alt="text columns"></div>
-      <div class="body">
-        <h3>正文 · 跨页排版 <code>text · columns</code></h3>
-        <p>长文跨左右两页连续排（前半在左页，后半在右页），左页首段仍下沉。适合没有配图的纯叙述页。</p>
-<pre><b>kind</b>: 'text', <b>variant</b>: 'columns',
-<b>title</b>: '出海之前',
-<b>text</b>: ['十五世纪初，灰港的船还只敢沿着海岸走……', …],
-<b>glossary</b>: { '星盘': '测量星体高度、推算纬度的铜制仪器。' }</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 02</span><img src="shots/h2-02.jpg" alt="feature split"></div>
-      <div class="body">
-        <h3>图文 · 左右分栏 <code>feature · split</code></h3>
-        <p>最朴素的图文对照：左图右文。图保持原比例，不再裁切，所以海图、长卷都能完整显示。</p>
-<pre><b>kind</b>: 'feature', <b>variant</b>: 'split',
-<b>image</b>: 'illustrations/h-map.svg',
-<b>caption</b>: '灰港海湾图（示例）',
-<b>text</b>: ['海图上不画国界，只画水深、礁石和避风处。', …]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 03</span><img src="shots/h2-03.jpg" alt="feature stack"></div>
-      <div class="body">
-        <h3>图文 · 上图下文 <code>feature · stack</code></h3>
-        <p>首段提到左页做成大字引文，右页上图下文。适合「先给一句气氛，再讲细节」的页面，避免左页空着。</p>
-<pre><b>kind</b>: 'feature', <b>variant</b>: 'stack',
-<b>image</b>: 'illustrations/h-town.svg',
-<b>text</b>: [
-  '天还没亮，水门就开了。渔船先走，商船随后……',   <i>// 左页大字</i>
-  '退潮时码头空出一大片滩涂……',                    <i>// 右页正文</i>
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 04</span><img src="shots/h2-04.jpg" alt="timeline seals"></div>
-      <div class="body">
-        <h3>时间线 · 蜡封分组 <code>timeline · seals</code></h3>
-        <p>有时间段或王朝的阶段划分时用。左页是带年份的蜡封，点开才展开条目；用 ‹ › 翻到别的组，那一组会自动展开。</p>
-<pre><b>kind</b>: 'timeline', <b>variant</b>: 'seals',
-<b>groups</b>: [
-  { id: 'v1', label: '第一次：绕岬', years: '1421' },
-  { id: 'v2', label: '第二次：北岭', years: '1433' },
-],
-<b>items</b>: [
-  { group: 'v1', kicker: '3月', title: '启航', text: '两条船，四十个人。' },
-  { group: 'v1', kicker: '4月', title: '归港' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 05</span><img src="shots/h2-05.jpg" alt="timeline ribbon"></div>
-      <div class="body">
-        <h3>时间线 · 横轴 <code>timeline · ribbon</code></h3>
-        <p>每个节点都有图时用。左页显示当前节点的插图，右页是一条横向菱形年轴，适合「同一件东西的多次重建」这类叙事。</p>
-<pre><b>kind</b>: 'timeline', <b>variant</b>: 'ribbon',
-<b>items</b>: [
-  { kicker: '1352', title: '木塔', image: 'illustrations/h-town.svg',
-    caption: '最初的木塔', text: '烧鱼油，光只照得到鸥岛。' },
-  { kicker: '1417', title: '被潮水冲毁' },
-  { kicker: '1488', title: '镜灯', text: '加装铜镜，光能照到外海。' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 06</span><img src="shots/h2-06.jpg" alt="cards accordion"></div>
-      <div class="body">
-        <h3>分类卡片 · 手风琴 <code>cards · accordion</code></h3>
-        <p>要让读者一项项展开细读时用。右页每行一个条目，展开后正文直接接在下面；左页显示当前条目配图。</p>
-<pre><b>kind</b>: 'cards', <b>variant</b>: 'accordion',
-<b>items</b>: [
-  { icon: 'compass', title: '星盘与罗盘', short: '导航',
-    text: '星盘夜里用，罗盘雾里用。', image: '…' },
-  { icon: '🧂', title: '盐', short: '货物，也是货币',
-    points: ['腌鱼', '交易'] },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 07</span><img src="shots/h2-07.jpg" alt="cards flip"></div>
-      <div class="body">
-        <h3>分类卡片 · 翻面 <code>cards · flip</code></h3>
-        <p>冷知识、传闻、迷信这类轻内容。2 列卡片，点一下翻面看背面；左页只留标题、导语和「已翻开 n / N」的进度。</p>
-<pre><b>kind</b>: 'cards', <b>variant</b>: 'flip',
-<b>items</b>: [
-  { icon: '🐈', title: '船猫', kicker: 'I',
-    short: '船上必须有一只猫，否则老鼠会吃掉海图。' },
-  { icon: '🔔', title: '不敲钟', kicker: 'II',
-    short: '出港时不能敲钟，那是给死者的。' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 08</span><img src="shots/h2-08.jpg" alt="compare columns"></div>
-      <div class="body">
-        <h3>对比 · 左右并排 <code>compare · columns</code></h3>
-        <p>只有两方（两种船、两个版本、两种制度）时最直观：左页 A，右页 B，不用来回切换。超过两项时两边都会出现切换标签。</p>
-<pre><b>kind</b>: 'compare', <b>variant</b>: 'columns',
-<b>eras</b>: [
-  { kicker: '近海', title: '平底驳船', image: '…',
-    text: '吃水浅，能在退潮的滩涂上搁浅等潮。',
-    points: ['船员 6 人', '单桅'] },
-  { kicker: '远洋', title: '三桅帆船', points: ['船员 40 人', '三桅'] },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 09</span><img src="shots/h2-09.jpg" alt="graph web"></div>
-      <div class="body">
-        <h3>关系网 <code>graph · web</code></h3>
-        <p>不是血缘，而是结盟、敌对、联姻。<code>links</code> 的 <code>dashed</code> 用来表示冲突或间接关系；点人物后，与它相连的线会亮起。</p>
-<pre><b>kind</b>: 'graph', <b>variant</b>: 'web',
-<b>nodes</b>: [
-  { id: 'salt', group: 'guild', x: 28, y: 26, title: '盐商行会' },
-  { id: 'ship', group: 'guild', x: 72, y: 26, title: '造船行会' },
-],
-<b>links</b>: [
-  { a: 'salt', b: 'ship', label: '争执', dashed: true },
-  { a: 'salt', b: 'light', label: '联姻' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 10</span><img src="shots/h2-10.jpg" alt="map journey"></div>
-      <div class="body">
-        <h3>地图 · 路线 <code>map · journey</code></h3>
-        <p><code>places</code> 的顺序就是路线。左页把走到当前站的路径连成虚线，右页配「第 n / N 站」，可以当航行日志逐站推进。</p>
-<pre><b>kind</b>: 'map', <b>variant</b>: 'journey',
-<b>places</b>: [
-  { x: 44, y: 54, kicker: '第 1 天', title: '灰港启航' },
-  { x: 13, y: 44, kicker: '第 3 天', title: '鸥岛', text: '补充淡水。' },
-  { x: 10, y: 15, kicker: '第 8 天', title: '灰海' },
-  { x: 44, y: 54, kicker: '第 19 天', title: '归港' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 11</span><img src="shots/h2-11.jpg" alt="quiz order"></div>
-      <div class="body">
-        <h3>小测 · 排序 <code>quiz · order</code></h3>
-        <p>把事件按时间排好。<code>options</code> 按正确顺序书写，显示时打乱；点错会清空已选并抖动，逼你重来。</p>
-<pre><b>kind</b>: 'quiz', <b>variant</b>: 'order',
-<b>question</b>: '把灯塔的历史按时间先后排好。',
-<b>options</b>: [              <i>// 按正确顺序写，显示时打乱</i>
-  { text: '木塔点亮' },
-  { text: '加石砌底座' },
-  { text: '被大潮冲毁' },
-  { text: '全城捐石重建' },
-  { text: '装上铜镜' },
-]</pre>
-      </div>
-    </article>
-
-    <article class="blk">
-      <div class="shot"><span class="no">CH.2 · 12</span><img src="shots/h2-12.jpg" alt="text plain"></div>
-      <div class="body">
-        <h3>正文 · 单栏尾声 <code>text · plain</code></h3>
-        <p>不配图、不下沉：左页一句居中引文，右页短正文。用来收尾，让读者在合上书之前停一下。</p>
-<pre><b>kind</b>: 'text', <b>variant</b>: 'plain',
-<b>title</b>: '尾声',
-<b>quote</b>: { text: '灯塔守护近处，星星守护远处。' },
-<b>text</b>: ['林恩的船再也没有回来……', '但从那以后，灰港的每一条船出港时……']</pre>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<section id="assets">
-  <div class="sec-head"><b>4</b><h2>完整素材</h2><span>可直接运行的两本示例书</span></div>
-  <p class="lead">示例不是截图拼的：<code>showcase/demo/</code> 下是两本完整工程的源码（不含依赖），<code>cd</code> 进去 <code>npm install &amp;&amp; npm run dev</code> 就能跑；所有插图都是手写的 SVG，可以拿来改成自己的素材。</p>
-
+  <div class="sec-head"><b>2</b><h2>组件总览</h2><span>10 种组件 / 22 种样式</span></div>
+  <p class="lead">每页 = 一个跨页。组件只声明「左页放什么、右页放什么」，布局、翻页、页码存档、手机端堆叠都由 <code>PagedChapter</code> 处理。数据里的坐标 <code>x/y</code> 都是原图上的百分比。</p>
   <div class="tbl-wrap">
   <table>
-    <tr><th style="width:84px">章 / 页</th><th style="width:150px">组件</th><th>标题</th><th>要点</th></tr>
-    <tr><td>ch1 · 1</td><td><code>text·dropcap</code></td><td>潮水之城</td><td>3 个词条释义、1 段引文、1 幅木刻</td></tr>
-    <tr><td>ch1 · 2</td><td><code>feature·hotspot</code></td><td>一幅木刻里的城</td><td>5 个图上的编号热点</td></tr>
-    <tr><td>ch1 · 3</td><td><code>timeline·rail</code></td><td>城的年表</td><td>1104—1480，6 个节点，含要点与引文</td></tr>
-    <tr><td>ch1 · 4</td><td><code>cards·grid</code></td><td>城里的人</td><td>6 种职业，3 个分类</td></tr>
-    <tr><td>ch1 · 5</td><td><code>compare·tabs</code></td><td>三个时代的港口</td><td>3 个分期，其中 2 期带图上编号点</td></tr>
-    <tr><td>ch1 · 6</td><td><code>graph·tree</code></td><td>灯塔家族</td><td>3 代 6 人，两个分组</td></tr>
-    <tr><td>ch1 · 7</td><td><code>map·pins</code></td><td>海湾地图</td><td>6 个地点，3 类图例</td></tr>
-    <tr><td>ch1 · 8</td><td><code>quiz·choice</code></td><td>小测</td><td>3 个选项，含错因与解析</td></tr>
-    <tr><td>ch2 · 1</td><td><code>text·columns</code></td><td>出海之前</td><td>跨页连续排版</td></tr>
-    <tr><td>ch2 · 2</td><td><code>feature·split</code></td><td>一张海图</td><td>左图右文，原比例显示</td></tr>
-    <tr><td>ch2 · 3</td><td><code>feature·stack</code></td><td>港口的一天</td><td>首段大字导语 + 上图下文</td></tr>
-    <tr><td>ch2 · 4</td><td><code>timeline·seals</code></td><td>三次远航</td><td>3 个蜡封分组、6 个节点</td></tr>
-    <tr><td>ch2 · 5</td><td><code>timeline·ribbon</code></td><td>灯塔的五次重建</td><td>5 个节点，横向年轴</td></tr>
-    <tr><td>ch2 · 6</td><td><code>cards·accordion</code></td><td>船上的东西</td><td>4 项，展开显示配图与要点</td></tr>
-    <tr><td>ch2 · 7</td><td><code>cards·flip</code></td><td>水手的迷信</td><td>4 张翻面卡</td></tr>
-    <tr><td>ch2 · 8</td><td><code>compare·columns</code></td><td>两种船</td><td>左右并排，各带要点</td></tr>
-    <tr><td>ch2 · 9</td><td><code>graph·web</code></td><td>港口的势力</td><td>5 方势力、5 条关系（含 2 条虚线冲突）</td></tr>
-    <tr><td>ch2 · 10</td><td><code>map·journey</code></td><td>第一次绕岬</td><td>5 站往返路线</td></tr>
-    <tr><td>ch2 · 11</td><td><code>quiz·order</code></td><td>排一排</td><td>5 项排序，答错清空</td></tr>
-    <tr><td>ch2 · 12</td><td><code>text·plain</code></td><td>尾声</td><td>居中引文 + 两段正文</td></tr>
+    <tr><th style="width:74px">kind</th><th style="width:88px">variant</th><th style="width:190px">左页 → 右页</th><th>用在什么地方</th></tr>
+    <tr class="cat"><td colspan="4">A · 版式（一本书 / 一章的开头）</td></tr>
+    <tr><td><code>opener</code></td><td><code>plate</code></td><td>满幅插图（压章号）→ 章号、副题、大标题、导语、关键数字</td><td>章扉页。给一章一个"翻开"的仪式感</td></tr>
+    <tr><td><code>opener</code></td><td><code>plain</code></td><td>巨大章号水印 + 徽章 → 同上</td><td>没有大图时的文字扉页</td></tr>
+    <tr><td><code>toc</code></td><td><code>plain</code></td><td>配图或羽笔 → 编号纲要，点条目展开摘要</td><td>本章有哪些内容 / 阅读路线</td></tr>
+    <tr class="cat"><td colspan="4">B · 叙述（正文与图文）</td></tr>
+    <tr><td><code>text</code></td><td><code>plain</code></td><td>配图、引文 → 正文</td><td>单栏正文</td></tr>
+    <tr><td><code>text</code></td><td><code>dropcap</code></td><td>同上 → 正文首字下沉</td><td>开篇叙述</td></tr>
+    <tr><td><code>text</code></td><td><code>columns</code></td><td>前半（下沉）+ 配图 → 后半</td><td>长文跨页连续排版</td></tr>
+    <tr><td><code>feature</code></td><td><code>split</code></td><td>原比例插图 → 正文</td><td>最朴素的图文对照</td></tr>
+    <tr><td><code>feature</code></td><td><code>hotspot</code></td><td>图上编号热点 → 正文；点编号换成该处注释</td><td>城景、器物、画作的讲解</td></tr>
+    <tr><td><code>feature</code></td><td><code>stack</code></td><td>首段大字导语 → 上图下文</td><td>先给一句气氛，再讲细节</td></tr>
+    <tr class="cat"><td colspan="4">C · 时间轴（大事件）</td></tr>
+    <tr><td><code>timeline</code></td><td><code>rail</code></td><td>年份 + 节点 + 标题/摘要的竖排列表 → 详情 + ‹ ›</td><td>年代顺序；条目可带 <code>short</code> 做副标题</td></tr>
+    <tr><td><code>timeline</code></td><td><code>seals</code></td><td>带年份的蜡封分组，展开条目 → 详情</td><td>王朝 / 阶段；翻到别组会自动展开</td></tr>
+    <tr><td><code>timeline</code></td><td><code>ribbon</code></td><td>当前节点插图 → 横向年轴 + 年份大字 + 详情</td><td>每个节点都有图（同一物的多次重建）</td></tr>
+    <tr class="cat"><td colspan="4">D · 探索（分类、对比、测验）</td></tr>
+    <tr><td><code>cards</code></td><td><code>grid</code></td><td>分类筛选 + 带色条的卡片 → 详情</td><td>一组同类事物（职业、兵种、建筑）</td></tr>
+    <tr><td><code>cards</code></td><td><code>accordion</code></td><td>筛选 + 当前项配图 → 手风琴</td><td>要逐项展开细读</td></tr>
+    <tr><td><code>cards</code></td><td><code>flip</code></td><td>翻开计数 → 2 列翻面卡</td><td>冷知识、传闻、迷信</td></tr>
+    <tr><td><code>compare</code></td><td><code>tabs</code></td><td>蜡封分期 + 图上编号点 → 当前分期详情</td><td>同一地方的不同时期</td></tr>
+    <tr><td><code>compare</code></td><td><code>columns</code></td><td>A 期 → B 期（并排）</td><td>两方对比：两种船、两种制度</td></tr>
+    <tr><td><code>quiz</code></td><td><code>choice</code></td><td>题目 + 配图 → 选项（错因 / 解析）</td><td>章末回顾</td></tr>
+    <tr><td><code>quiz</code></td><td><code>order</code></td><td>题目 → 按顺序点按，错了清空</td><td>排年代、排工序</td></tr>
+    <tr class="cat"><td colspan="4">E · 图谱与地图</td></tr>
+    <tr><td><code>graph</code></td><td><code>tree</code></td><td>家谱（按 <code>parent</code> 自动分层）→ 人物详情 + 关系跳转</td><td>血缘、世系</td></tr>
+    <tr><td><code>graph</code></td><td><code>web</code></td><td>自由坐标关系网 → 详情 + 关系列表</td><td>结盟、敌对、联姻</td></tr>
+    <tr><td><code>map</code></td><td><code>pins</code></td><td>图例筛选 + 地图点位 → 地点详情</td><td>地点分布</td></tr>
+    <tr><td><code>map</code></td><td><code>journey</code></td><td>逐站连线 → 详情 + 第 n / N 站</td><td>行军、航线、迁徙</td></tr>
   </table>
   </div>
 
-  <h3 style="font-family:var(--serif);font-size:17px;margin:34px 0 4px">插图素材（SVG，可直接改）</h3>
-  <p style="color:var(--ink2);font-size:13.5px;margin:0">两张版画风插图都是手写 SVG：一套排线纹理 + 单个描边色，放进 <code>public/illustrations/</code> 即可用。热点和地图的坐标就是按这两张图量的。</p>
-  <div class="assets">
-    <figure><img src="demo/chronicle/public/illustrations/h-town.svg" alt="灰港城景插图"><figcaption><b>h-town.svg</b> · 400×500<br>城景木刻：灯塔、教堂、城墙、码头与帆船</figcaption></figure>
-    <figure><img src="demo/chronicle/public/illustrations/h-map.svg" alt="灰港海湾地图"><figcaption><b>h-map.svg</b> · 400×300<br>海湾图：海岸线、岛屿、山脉、罗盘与地名</figcaption></figure>
+  <h3 class="sub">新增：章扉页与纲要 <i>写法</i></h3>
+  <div class="cols2">
+    <div>
+<pre><b>// 章扉页</b>
+{
+  <b>kind</b>: 'opener', <b>variant</b>: 'plate',
+  <b>chapter</b>: '第三章',
+  <b>latin</b>: 'DE REGNO',
+  <b>title</b>: '三王之间',
+  <b>image</b>: 'illustrations/town.svg',
+  <b>lede</b>: '一百四十年里，王冠换了四顶。',
+  <b>stats</b>: [
+    { n: '140 年', label: '内战' },
+    { n: '3', label: '个王朝' },
+    { n: '11', label: '场战役' },
+  ],
+  <b>quote</b>: { text: '王冠不属于戴它的人。', source: '—— 宫廷记录' },
+}</pre>
+    </div>
+    <div>
+<pre><b>// 本章纲要</b>
+{
+  <b>kind</b>: 'toc',
+  <b>title</b>: '本章条目',
+  <b>note</b>: '按时间顺序排列，点击展开。',
+  <b>items</b>: [
+    { title: '盐与船', short: '城市的起点',
+      text: '……', page: 12 },
+    { title: '第一次远航', short: '1421',
+      page: 15 },
+  ],
+}
+<i>// page 只是页码标注，不跳转；
+// 点条目在下方展开摘要。</i></pre>
+    </div>
   </div>
 
-  <h3 style="font-family:var(--serif);font-size:17px;margin:34px 0 8px">目录结构</h3>
-  <div class="files">
-showcase/<br>
-├── index.html                 <b>本页</b><br>
-├── shots/                     40 张实机截图（1440×900 / 390×844）<br>
-├── demo/chronicle/            <b>图文书示例</b>：灰港编年史（ch1、ch2，20 页）<br>
-│   ├── src/book.config.ts     heraldic · crown · wine/vellum · unlock: open<br>
-│   ├── src/chapters/ch1/      8 页：text / feature / timeline / cards / compare / graph / map / quiz<br>
-│   ├── src/chapters/ch2/      12 页：另外 12 种 variant<br>
-│   └── public/illustrations/  h-town.svg · h-map.svg<br>
-└── demo/mixed/                <b>混合示例</b>：图文章 + 解谜章共存，emblem 版式<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── src/book.config.ts     emblem · longship · umber/linen · unlock: progressive<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── src/chapters/ch1/      图文章（同灰港第一章）<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└── src/chapters/ch2/      解谜章（Classic + spec + art）
-  </div>
   <div class="note">
-    <b>为什么两个 demo 都没有 node_modules：</b>只保留源码和素材。运行前在目录里执行 <code>npm install</code>；
-    换成自己的书时，用 <code>scripts/new_book.py</code> 生成新工程，再把这两个 demo 里的章节文件夹复制进去改。
+    <b>历史内容的两个新字段。</b>任何 <code>Entry</code> 都能写 <code>facts: [{ k: '地点', v: '灰港' }, …]</code>，详情里会排成两列事实卡（地点 / 参战方 / 结果 / 影响）；<code>source</code> 在详情末尾显示史料出处。时间轴的 <code>short</code> 现在是条目的副标题，扫一眼就能看懂每个节点。
   </div>
 </section>
 
-<section id="reuse">
-  <div class="sec-head"><b>5</b><h2>怎么复用</h2><span>三条命令开始</span></div>
+<!-- ================= 3 案例 ================= -->
+<section id="cases">
+  <div class="sec-head"><b>3</b><h2>案例</h2><span>《灰港编年史》实机截图</span></div>
+  <p class="lead">示例书是虚构的港城史，两章 20 个跨页，把上面除 <code>opener</code> / <code>toc</code> 外的 20 种样式都用了一遍。按类别看：</p>
+
+  <h3 class="sub">3.1 目录与外壳 <i>壳</i></h3>
+  <div class="blocks">
+    <article class="blk"><div class="shot"><span class="no">目录</span><img src="shots/hist-toc.jpg" alt="目录"></div>
+      <div class="body"><h4>双页目录</h4><p>左页书名与三句题记，右页章节列表。历史书默认 <code>unlock: open</code>，全部章节可直接点开；解谜书是逐章解锁。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">收尾</span><img src="shots/h1-finish.jpg" alt="本章终"></div>
+      <div class="body"><h4>本章终</h4><p>最后一页的按钮变成「读完本章」。有 <code>meta.excerpt</code> 的章节先播摘录过场，没有就直接收尾。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">解谜章</span><img src="shots/p-ch1.jpg" alt="解谜章"></div>
+      <div class="body"><h4>同一本书里的解谜章</h4><p>图文章与解谜章可以混排：App 看章节有没有 <code>pages</code> 决定用哪套外壳。</p></div></article>
+  </div>
+
+  <h3 class="sub">3.2 图文介绍 <i>叙述</i></h3>
+  <div class="blocks">
+    <article class="blk"><div class="shot"><span class="no">ch1 · 01</span><img src="shots/h1-01.jpg" alt="text dropcap"></div>
+      <div class="body"><h4>正文 · 首字下沉 <code>text·dropcap</code></h4><p>左页配图与引文，右页正文。<code>glossary</code> 的词变红，点开在右页顶部浮出释义。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch1 · 02</span><img src="shots/h1-02.jpg" alt="hotspot"></div>
+      <div class="body"><h4>图文 · 热点 <code>feature·hotspot</code></h4><p>点编号换注释。图按原比例显示，坐标就是原图上的百分比，不会错位。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 01</span><img src="shots/h2-01.jpg" alt="columns"></div>
+      <div class="body"><h4>正文 · 跨页 <code>text·columns</code></h4><p>长文连续排到右页，左页首段仍下沉。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 02</span><img src="shots/h2-02.jpg" alt="split"></div>
+      <div class="body"><h4>图文 · 分栏 <code>feature·split</code></h4><p>左图右文，海图、长卷都完整显示。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 03</span><img src="shots/h2-03.jpg" alt="stack"></div>
+      <div class="body"><h4>图文 · 上图下文 <code>feature·stack</code></h4><p>首段提到左页做成大字引文，右页上图下文，避免左页空着。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 12</span><img src="shots/h2-12.jpg" alt="plain"></div>
+      <div class="body"><h4>尾声 <code>text·plain</code></h4><p>左页一句居中引文，右页短正文，用来收尾。</p></div></article>
+  </div>
+
+  <h3 class="sub">3.3 大事件时间轴 <i>时间</i></h3>
+  <div class="blocks">
+    <article class="blk"><div class="shot"><span class="no">ch1 · 03</span><img src="shots/h1-03.jpg" alt="rail"></div>
+      <div class="body"><h4>竖排年表 <code>timeline·rail</code></h4><p>年份右对齐、节点连线贯穿，标题下多了一行摘要；选中项左侧出现色条。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 04</span><img src="shots/h2-04.jpg" alt="seals"></div>
+      <div class="body"><h4>蜡封分组 <code>timeline·seals</code></h4><p>按航次分组的蜡封，点开才展开条目；用 ‹ › 翻到别组时会自动展开。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 05</span><img src="shots/h2-05.jpg" alt="ribbon"></div>
+      <div class="body"><h4>横向年轴 <code>timeline·ribbon</code></h4><p>左页是当前节点的插图，右页年轴下方放大当前年份和标题。</p></div></article>
+  </div>
+
+  <h3 class="sub">3.4 地图与人物图谱 <i>空间</i></h3>
+  <div class="blocks">
+    <article class="blk"><div class="shot"><span class="no">ch1 · 07</span><img src="shots/h1-07.jpg" alt="map pins"></div>
+      <div class="body"><h4>地图 · 点位 <code>map·pins</code></h4><p>图例可筛选；地点名只在悬停或选中时出现，避免图上文字打架。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 10</span><img src="shots/h2-10.jpg" alt="journey"></div>
+      <div class="body"><h4>地图 · 路线 <code>map·journey</code></h4><p>按顺序连成虚线，只画走到当前的站；<code>places</code> 的顺序就是路线。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch1 · 06</span><img src="shots/h1-06.jpg" alt="tree"></div>
+      <div class="body"><h4>家谱 <code>graph·tree</code></h4><p>只写 <code>parent</code>，自动分层居中。节点现在是名牌（姓名 + 年份），比圆点更好认。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 09</span><img src="shots/h2-09.jpg" alt="web"></div>
+      <div class="body"><h4>关系网 <code>graph·web</code></h4><p>结盟、敌对、联姻；<code>dashed</code> 表示冲突或间接关系，选中后相关连线会亮起。</p></div></article>
+  </div>
+
+  <h3 class="sub">3.5 探索与测验 <i>互动</i></h3>
+  <div class="blocks">
+    <article class="blk"><div class="shot"><span class="no">ch1 · 04</span><img src="shots/h1-04.jpg" alt="grid"></div>
+      <div class="body"><h4>分类卡片 <code>cards·grid</code></h4><p>卡片左缘是分类色条，图标独立成行；选中抬升并在右页展开。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch1 · 05</span><img src="shots/h1-05.jpg" alt="compare tabs"></div>
+      <div class="body"><h4>分期对比 <code>compare·tabs</code></h4><p>蜡封切换时期，图上还能叠编号点看细节。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 06</span><img src="shots/h2-06.jpg" alt="accordion"></div>
+      <div class="body"><h4>手风琴 <code>cards·accordion</code></h4><p>逐项展开细读，左页跟着显示当前项配图。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 07</span><img src="shots/h2-07.jpg" alt="flip"></div>
+      <div class="body"><h4>翻面卡片 <code>cards·flip</code></h4><p>正面图标 + 标题，背面一句话；左页显示翻开进度。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 08</span><img src="shots/h2-08.jpg" alt="compare columns"></div>
+      <div class="body"><h4>并排对比 <code>compare·columns</code></h4><p>两方各占一页，不用来回切换。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch1 · 08</span><img src="shots/h1-08.jpg" alt="quiz choice"></div>
+      <div class="body"><h4>小测 · 单选 <code>quiz·choice</code></h4><p>选错抖动并说明为什么错，选对给解析。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">ch2 · 11</span><img src="shots/h2-11.jpg" alt="quiz order"></div>
+      <div class="body"><h4>小测 · 排序 <code>quiz·order</code></h4><p><code>options</code> 按正确顺序写，显示时打乱；点错清空重来。</p></div></article>
+  </div>
+
+  <h3 class="sub">3.6 手机端 <i>≤768px</i></h3>
+  <div class="phones">
+    <article class="blk"><div class="shot"><span class="no">目录</span><img src="shots/m-toc.jpg" alt="手机目录"></div>
+      <div class="body"><h4>单栏目录</h4><p>左右页改为上下，页脚保留「返回封面」。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">热点</span><img src="shots/m1-02.jpg" alt="手机热点"></div>
+      <div class="body"><h4>点选滚动</h4><p>点编号后详情自动滚进视野。</p></div></article>
+    <article class="blk"><div class="shot"><span class="no">时间线</span><img src="shots/m1-03.jpg" alt="手机时间线"></div>
+      <div class="body"><h4>导航在上</h4><p>详情在下，翻页栏吸底。</p></div></article>
+  </div>
+</section>
+
+<!-- ================= 4 素材 ================= -->
+<section id="assets">
+  <div class="sec-head"><b>4</b><h2>素材</h2><span>可直接运行的两本书</span></div>
+  <p class="lead"><code>showcase/demo/</code> 下是完整工程源码（不含依赖），<code>npm install &amp;&amp; npm run dev</code> 就能跑；插图都是手写 SVG，可以改成自己的素材。</p>
   <div class="cols2">
     <div>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:0 0 8px">生成</h3>
-      <div class="files" style="line-height:1.9">
+      <h3 class="sub">插图 <i>svg</i></h3>
+      <div class="covers">
+        <figure><img src="demo/chronicle/public/illustrations/h-town.svg" alt="town"><figcaption><b>h-town.svg</b> · 400×500<br>城景木刻：灯塔、教堂、城墙、码头、帆船</figcaption></figure>
+        <figure><img src="demo/chronicle/public/illustrations/h-map.svg" alt="map"><figcaption><b>h-map.svg</b> · 400×300<br>海湾图：海岸、岛屿、山脉、罗盘</figcaption></figure>
+      </div>
+    </div>
+    <div>
+      <h3 class="sub">目录 <i>files</i></h3>
+      <div class="files">
+showcase/<br>
+├── index.html                 <b>本页</b><br>
+├── shots/                     32 张实机截图<br>
+├── demo/chronicle/            图文书：ch1 8 页 + ch2 12 页<br>
+└── demo/mixed/                图文 + 解谜混排（emblem 版式）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── src/book.config.ts      封面 / 版式 / 解锁方式<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── src/chapters/chN/       pages 数据 或 Classic+spec
+      </div>
+      <div class="note"><b>示例书是虚构的。</b>结构照抄、内容替换即可；写新章时从 demo 里找同 <code>kind·variant</code> 的页面改。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 复用 ================= -->
+<section id="reuse">
+  <div class="sec-head"><b>5</b><h2>复用</h2><span>三条命令开始</span></div>
+  <div class="cols2">
+    <div>
+      <div class="files" style="line-height:1.95">
 S=interactive-book-builder<br>
 python3 $S/scripts/themes.py list<br>
 python3 $S/scripts/new_book.py 书名目录 \<br>
 &nbsp;&nbsp;--type history --title 灰港编年史 \<br>
 &nbsp;&nbsp;--layout heraldic --emblem crown \<br>
-&nbsp;&nbsp;--cover wine --paper vellum --install
-      </div>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:24px 0 8px">加章 / 换主题</h3>
-      <div class="files" style="line-height:1.9">
+&nbsp;&nbsp;--cover wine --paper vellum --install<br><br>
 python3 $S/scripts/add_chapter.py 书目录 3 --kind paged<br>
 python3 $S/scripts/themes.py set 书目录 --cover umber --paper linen
       </div>
     </div>
     <div>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:0 0 8px">记住三件事</h3>
+      <h3 class="sub" style="margin-top:0">记住四件事</h3>
       <ul class="list">
-        <li>图文章只写数据，不写组件：复制示例里同 <code>kind·variant</code> 的页面改内容。</li>
-        <li>颜色只用 <code>ink</code> / <code>accent</code> / <code>paper</code> / <code>tint(k)</code>，换纸张主题后仍然协调。</li>
-        <li>SVG 当底图时记得写 <code>width</code>/<code>height</code>，否则没有固有尺寸、显示不出来。</li>
+        <li>图文章只写数据，不写组件；从案例里复制同 <code>kind·variant</code> 的页面。</li>
+        <li>颜色只用 <code>ink</code> / <code>accent</code> / <code>paper</code> / <code>tint(k)</code>，换纸张后仍然协调。</li>
+        <li>SVG 当底图要写 <code>width</code>/<code>height</code>，否则没有固有尺寸、显示不出来。</li>
+        <li>历史内容多用 <code>facts</code> 和 <code>source</code>，详情页才有史料感。</li>
       </ul>
-      <h3 style="font-family:var(--serif);font-size:16px;margin:24px 0 8px">文档</h3>
+      <h3 class="sub">文档</h3>
       <ul class="list">
-        <li><a href="../SKILL.md">SKILL.md</a>：两种书型的完整流程</li>
-        <li><a href="../references/blocks.md">references/blocks.md</a>：20 种样式的字段表</li>
-        <li><a href="../references/themes.md">references/themes.md</a>：封面版式、徽章、配色</li>
-        <li><a href="../references/engine-api.md">references/engine-api.md</a>：解谜章的书页引擎</li>
-        <li><a href="../theme-gallery.html">theme-gallery.html</a>：主题配色预览</li>
+        <li><a href="../SKILL.md">SKILL.md</a>：完整流程</li>
+        <li><a href="../references/blocks.md">references/blocks.md</a>：22 种样式字段表</li>
+        <li><a href="../references/themes.md">references/themes.md</a>：版式、徽章、配色变量</li>
+        <li><a href="../references/engine-api.md">references/engine-api.md</a>：解谜章书页引擎</li>
       </ul>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>Interactive Book Builder · 案例与素材</span>
-  <span>示例书《灰港编年史》为虚构内容，仅作结构演示</span>
-  <span>截图来自 Vite 生产构建，桌面 1440×900 / 手机 390×844</span>
+  <span>Interactive Book Builder · 主题、组件与案例</span>
+  <span>示例书《灰港编年史》为虚构内容</span>
+  <span>截图来自生产构建，桌面 1440×900 / 手机 390×844</span>
 </footer>
 </main>
 </body>

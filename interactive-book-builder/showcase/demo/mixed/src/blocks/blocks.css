@@ -19,7 +19,8 @@
 .pin > span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--pp-bg); color: var(--c); border: 2px solid var(--c); font: 700 11px 'Playfair Display', 'Songti SC', serif; box-shadow: 0 2px 6px rgba(0,0,0,.2); transition: all .25s; }
 .pin:hover > span { transform: scale(1.12); }
 .pin.on > span { background: var(--c); color: var(--pp-bg); transform: scale(1.18); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 22%, transparent), 0 3px 8px rgba(0,0,0,.25); }
-.pin > em { position: absolute; top: 100%; margin-top: 3px; white-space: nowrap; font: 600 11px/1.3 'Cormorant Garamond', 'Songti SC', serif; font-style: normal; color: rgb(var(--pp-ink-rgb) / .85); background: color-mix(in srgb, var(--pp-bg) 80%, transparent); padding: 0 4px; border-radius: 2px; pointer-events: none; }
+.pin > em { position: absolute; top: 100%; margin-top: 3px; white-space: nowrap; font: 600 11px/1.3 'Cormorant Garamond', 'Songti SC', serif; font-style: normal; color: rgb(var(--pp-ink-rgb) / .9); background: color-mix(in srgb, var(--pp-bg) 88%, transparent); padding: 0 5px; border-radius: 2px; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.pin:hover > em, .pin.on > em { opacity: 1; }
 .pin.on > em { color: var(--c); }
 .route { animation: route-dash 1.2s linear infinite; }
 @keyframes route-dash { to { stroke-dashoffset: -20; } }
@@ -31,3 +32,112 @@
 .flip-face { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 12px; text-align: center; color: var(--pp-ink);
   border: 1px solid rgb(var(--pp-ink-rgb) / .2); background: color-mix(in srgb, var(--pp-bg) 70%, transparent); box-shadow: inset 0 0 0 4px var(--pp-bg), inset 0 0 0 5px rgb(var(--pp-ink-rgb) / .12); }
 .flip-back { transform: rotateY(180deg); font: 13px/1.7 'Cormorant Garamond', 'Songti SC', serif; background: var(--pp-bg2); overflow: auto; }
+
+/* ---------- 说明小字 ---------- */
+.cap-note { margin-top: .5rem; text-align: center; font: italic 12px/1.6 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .6); }
+
+/* ---------- 详情：事实卡 / 出处 ---------- */
+.dt-facts { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.3rem; padding: .85rem 0; border-top: 1px solid rgb(var(--pp-ink-rgb) / .12); border-bottom: 1px solid rgb(var(--pp-ink-rgb) / .12); font-family: 'Songti SC', serif; font-size: 13px; }
+.dt-facts > div { display: flex; gap: .5rem; min-width: 0; }
+.dt-facts dt { flex: none; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgb(var(--pp-accent-rgb)); padding-top: 2px; }
+.dt-facts dd { margin: 0; color: rgb(var(--pp-ink-rgb) / .9); line-height: 1.65; }
+.dt-src { font: italic 11.5px/1.6 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .45); letter-spacing: .04em; }
+.dt-src::before { content: "— "; }
+
+/* ---------- 时间线：竖排 ---------- */
+.tl-list { position: relative; display: flex; flex-direction: column; gap: 1px; }
+.tl-list::before { content: ""; position: absolute; left: 69px; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--pp-ink-rgb) / .18); }
+.tl-row { position: relative; display: grid; grid-template-columns: 52px 18px 1fr; align-items: center; gap: .5rem; padding: .55rem .55rem .55rem 0; text-align: left; border-radius: 3px; transition: background .2s; }
+.tl-row:hover { background: rgb(var(--pp-ink-rgb) / .04); }
+.tl-row.on { background: rgb(var(--pp-accent-rgb) / .08); }
+.tl-row.on::before { content: ""; position: absolute; left: -6px; top: 7px; bottom: 7px; width: 2px; background: rgb(var(--pp-accent-rgb)); }
+.tl-year { font: 600 11px/1.3 'Playfair Display', 'Songti SC', serif; letter-spacing: .04em; color: rgb(var(--pp-ink-rgb) / .55); text-align: right; }
+.tl-row.on .tl-year { color: rgb(var(--pp-accent-rgb)); }
+.tl-dot { width: 9px; height: 9px; border: 2px solid; border-radius: 50%; justify-self: center; transition: transform .25s; }
+.tl-row.on .tl-dot { transform: scale(1.3); }
+.tl-body b { display: block; font: 600 15px/1.45 'Songti SC', serif; color: var(--pp-ink); }
+.tl-row.on .tl-body b { color: rgb(var(--pp-accent-rgb)); }
+.tl-body small { display: block; font: 12px/1.55 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .55); }
+.tl-row.sm { grid-template-columns: 44px 14px 1fr; gap: .4rem; padding: .32rem .4rem .32rem 0; }
+.tl-row.sm .tl-body b { font-size: 14px; font-weight: 400; }
+
+/* ---------- 时间线：横轴 ---------- */
+.ribbon { position: relative; display: flex; justify-content: space-between; gap: 2px; overflow-x: auto; padding: 6px 2px 0; }
+.ribbon::before { content: ""; position: absolute; left: 0; right: 0; top: 12px; height: 1px; background: rgb(var(--pp-ink-rgb) / .28); }
+.ribbon-node { position: relative; flex: 0 0 auto; min-width: 54px; display: flex; flex-direction: column; align-items: center; gap: 7px; padding-top: 5px; }
+.ribbon-dot { width: 13px; height: 13px; border: 2px solid; transform: rotate(45deg); background: var(--pp-bg); transition: transform .25s, box-shadow .25s; }
+.ribbon-node.on .ribbon-dot { transform: rotate(45deg) scale(1.4); box-shadow: 0 0 0 4px rgb(var(--pp-accent-rgb) / .16); }
+.ribbon-yr { font: 600 11px/1 'Playfair Display', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .55); }
+.ribbon-node.on .ribbon-yr { color: rgb(var(--pp-accent-rgb)); }
+.ribbon-head { display: flex; align-items: baseline; gap: .8rem; padding-bottom: .45rem; border-bottom: 1px solid rgb(var(--pp-ink-rgb) / .12); }
+.ribbon-head span { font: 700 26px/1 'Playfair Display', 'Songti SC', serif; color: rgb(var(--pp-accent-rgb)); }
+.ribbon-head b { font: 600 16px/1.4 'Songti SC', serif; color: var(--pp-ink); }
+
+/* ---------- 分类卡片 ---------- */
+.card-item { position: relative; display: flex; flex-direction: column; gap: 2px; padding: .7rem .75rem .75rem .9rem; text-align: left; overflow: hidden;
+  border: 1px solid rgb(var(--pp-ink-rgb) / .15); background: color-mix(in srgb, var(--pp-bg) 55%, transparent); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.card-item:hover { border-color: rgb(var(--pp-ink-rgb) / .38); transform: translateY(-2px); }
+.card-item.on { border-color: rgb(var(--pp-accent-rgb)); background: rgb(var(--pp-accent-rgb) / .07); transform: translateY(-2px); box-shadow: 0 4px 12px rgb(var(--pp-shadow)); }
+.card-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; opacity: .8; }
+.card-ico { color: rgb(var(--pp-accent-rgb)); display: block; margin-bottom: 1px; }
+.ico-ch { filter: grayscale(1) sepia(.3) contrast(.9); }
+.card-item b { font: 600 14px/1.4 'Songti SC', serif; color: var(--pp-ink); }
+.card-sub { font: 11.5px/1.5 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .55); }
+
+/* ---------- 关系图节点 ---------- */
+.gnode { position: absolute; z-index: 2; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 1px;
+  max-width: 106px; padding: 4px 9px 5px; background: var(--pp-bg); border: 1px solid rgb(var(--pp-ink-rgb) / .28); border-radius: 3px;
+  box-shadow: 0 1px 4px rgb(var(--pp-shadow)); transition: transform .2s, background .2s, box-shadow .2s; }
+.gnode::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 5px; height: 5px; transform: translateX(-50%) rotate(45deg);
+  background: inherit; border-right: 1px solid rgb(var(--pp-ink-rgb) / .28); border-bottom: 1px solid rgb(var(--pp-ink-rgb) / .28); }
+.gnode b { font: 600 12.5px/1.3 'Songti SC', serif; color: var(--pp-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.gnode small { font: 10px/1.2 'Playfair Display', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .5); }
+.gnode:hover { border-color: var(--c); transform: translate(-50%, -50%) scale(1.05); }
+.gnode.on { background: var(--c); border-color: var(--c); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 22%, transparent); }
+.gnode.on b, .gnode.on small { color: #fff; }
+
+/* ---------- 章扉页 ---------- */
+.op-plate { position: relative; }
+.op-plate::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(var(--pp-ink-rgb) / .5), transparent 42%); pointer-events: none; }
+.op-frame { position: absolute; inset: 8px; border: 1px solid rgb(var(--pp-bg) / .45); pointer-events: none; }
+.op-stamp { position: absolute; left: 16px; bottom: 14px; z-index: 2; font: 600 13px/1 'Songti SC', serif; letter-spacing: .3em; color: var(--pp-bg); text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+.op-blank { position: relative; min-height: 300px; height: 100%; display: grid; place-items: center; text-align: center;
+  border: 1px solid rgb(var(--pp-ink-rgb) / .2); background: color-mix(in srgb, var(--pp-bg2) 65%, transparent); }
+.op-num { font: 700 clamp(64px, 12vw, 110px)/1 'Playfair Display', serif; color: rgb(var(--pp-accent-rgb) / .16); letter-spacing: .04em; }
+.op-blank em { position: absolute; bottom: 40%; font: 13px/1 'Songti SC', serif; letter-spacing: .4em; color: rgb(var(--pp-ink-rgb) / .5); font-style: normal; }
+.op-mark { position: absolute; bottom: 16px; right: 16px; width: 50px; color: rgb(var(--pp-ink-rgb) / .22); }
+.op-body { display: flex; flex-direction: column; gap: 1rem; }
+.op-latin { font: 600 11px/1 'Playfair Display', 'Songti SC', serif; letter-spacing: .3em; text-transform: uppercase; color: rgb(var(--pp-accent-rgb)); }
+.op-title { font: 700 clamp(26px, 3.2vw, 36px)/1.3 'Playfair Display', 'Songti SC', serif; letter-spacing: .04em; color: var(--pp-ink); margin: 0; }
+.op-rule { display: flex; align-items: center; gap: 8px; color: rgb(var(--pp-ink-rgb) / .35); }
+.op-rule i { height: 1px; width: 46px; background: currentColor; }
+.op-rule b { width: 6px; height: 6px; transform: rotate(45deg); background: currentColor; }
+.op-lede { font: 16px/1.9 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .82); margin: 0; }
+.op-stats { display: flex; flex-wrap: wrap; gap: 1.4rem; margin: .5rem 0; padding: .95rem 0; border-top: 1px solid rgb(var(--pp-ink-rgb) / .12); border-bottom: 1px solid rgb(var(--pp-ink-rgb) / .12); }
+.op-stats dt { font: 700 25px/1 'Playfair Display', 'Songti SC', serif; color: rgb(var(--pp-accent-rgb)); }
+.op-stats dd { margin: .35rem 0 0; font: 11.5px/1.4 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .6); letter-spacing: .05em; }
+.op-quote { margin: 0; padding-left: 1rem; border-left: 2px solid rgb(var(--pp-accent-rgb) / .5); font: italic 15px/1.85 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .8); }
+.op-quote footer { margin-top: .35rem; font: 11px 'Songti SC', serif; font-style: normal; color: rgb(var(--pp-ink-rgb) / .45); }
+
+/* ---------- 本章纲要 ---------- */
+.toc-side { display: flex; flex-direction: column; gap: 1rem; }
+.toc-mark { padding: 2.4rem 0; text-align: center; color: rgb(var(--pp-ink-rgb) / .22); }
+.toc-note { margin: 0; font: italic 13px/1.85 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .55); }
+.toc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgb(var(--pp-ink-rgb) / .16); }
+.toc-list li { border-bottom: 1px solid rgb(var(--pp-ink-rgb) / .12); }
+.toc-row { display: grid; grid-template-columns: 32px 1fr auto; align-items: baseline; gap: .7rem; width: 100%; padding: .68rem .2rem; text-align: left; }
+.toc-no { font: 600 12px 'Playfair Display', serif; color: rgb(var(--pp-accent-rgb) / .7); }
+.toc-t b { display: block; font: 600 15.5px/1.45 'Songti SC', serif; color: var(--pp-ink); }
+.toc-t small { display: block; font: 12px/1.55 'Cormorant Garamond', 'Songti SC', serif; color: rgb(var(--pp-ink-rgb) / .55); }
+.toc-p { font: 11px 'Playfair Display', serif; color: rgb(var(--pp-ink-rgb) / .35); letter-spacing: .08em; }
+.toc-list li.on .toc-t b { color: rgb(var(--pp-accent-rgb)); }
+.toc-more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .3s, opacity .3s; }
+.toc-more.on { grid-template-rows: 1fr; opacity: 1; padding-bottom: .85rem; }
+.toc-more > div { overflow: hidden; padding-left: 32px; }
+
+@media (max-width: 767px) {
+  .dt-facts { grid-template-columns: 1fr; }
+  .op-title { font-size: 26px; }
+  .tl-list::before { left: 60px; }
+  .tl-row { grid-template-columns: 44px 16px 1fr; }
+}

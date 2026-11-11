@@ -4,11 +4,13 @@ import type { BlockProps } from './ui';
 import { FeatureBlock, QuizBlock, TextBlock } from './reading';
 import { CardsBlock, CompareBlock, TimelineBlock } from './explore';
 import { GraphBlock, MapBlock } from './board';
+import { OpenerBlock, TocBlock } from './pages';
 import './blocks.css';
 
 /** kind → 组件。新增组件：写一个 (p, lang, Spread) => <Spread left right/> 的组件，在这里注册，并在 types.ts 加类型 */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const BLOCKS: Record<Kind, React.FC<BlockProps<any>>> = {
+  opener: OpenerBlock, toc: TocBlock,
   text: TextBlock, feature: FeatureBlock, quiz: QuizBlock,
   timeline: TimelineBlock, cards: CardsBlock, compare: CompareBlock,
   graph: GraphBlock, map: MapBlock,
@@ -16,6 +18,8 @@ export const BLOCKS: Record<Kind, React.FC<BlockProps<any>>> = {
 
 /** ✧ 默认提示（页面没写 tip 时） */
 export const TIPS: Record<Kind, [string, string]> = {
+  opener: ['左右翻页继续；数字是这一章的关键数字。', 'Turn the page; the numbers sum up the chapter.'],
+  toc: ['点条目展开摘要；页码是它在书中的位置。', 'Tap an entry for its summary.'],
   text: ['慢慢读。带下划线的词可以点开看释义。', 'Read slowly. Underlined words open a note.'],
   feature: ['看图读文；图上有编号时，点编号看注释。', 'Read the picture; tap numbers for notes.'],
   quiz: ['想一想再选。选错没关系，会告诉你为什么。', 'Think, then choose. Wrong answers explain themselves.'],

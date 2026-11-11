@@ -12,31 +12,29 @@ export const TimelineBlock: React.FC<BlockProps<TimelinePage>> = ({ p, lang, Spr
   const pick = (k: number) => { setI(k); const g = p.items[k]?.group; if (g) setOpen(g); };
   const detail = <><Detail e={it} lang={lang} color={col} /><div className="mt-6"><Stepper i={i} n={p.items.length} set={pick} /></div></>;
   const row = (k: number, compact = false) => {
-    const e = p.items[k], on = k === i;
+    const e = p.items[k], on = k === i, c = colorOf(p.groups, e.group);
     return (
-      <button key={k} onClick={() => { pick(k); reveal(); }} className={`relative w-full text-left flex items-baseline gap-3 rounded-md transition-colors ${compact ? 'px-2 py-1.5' : 'pl-8 pr-2 py-2'} ${on ? 'bg-paper/70 ring-1 ring-accent/30' : 'hover:bg-ink/[.04]'}`}>
-        {!compact && <span className={`absolute left-[9px] top-[14px] w-3 h-3 rounded-full border-2 transition-all ${on ? 'scale-125' : ''}`} style={{ borderColor: colorOf(p.groups, e.group), background: on ? colorOf(p.groups, e.group) : 'var(--pp-bg)' }} />}
-        <span className="shrink-0 w-14 font-display text-[11px] tracking-wider text-accent/80">{tr(e.kicker, lang)}</span>
-        <span className={`font-serif text-[15px] leading-snug ${on ? 'font-bold text-accent' : 'text-ink'}`}>{tr(e.title, lang)}</span>
+      <button key={k} onClick={() => { pick(k); reveal(); }} className={`tl-row ${on ? 'on' : ''} ${compact ? 'sm' : ''}`}>
+        <span className="tl-year">{tr(e.kicker, lang)}</span>
+        <span className="tl-dot" style={{ background: on ? c : 'var(--pp-bg)', borderColor: c }} />
+        <span className="tl-body"><b>{tr(e.title, lang)}</b>{e.short && !compact && <small>{tr(e.short, lang)}</small>}</span>
       </button>
     );
   };
 
   if (p.variant === 'ribbon') return (
-    <Spread left={it && <figure className="fade-in" key={i}><Img src={it.image} natural />{it.caption && <figcaption className="mt-2 text-center text-xs italic opacity-60 font-serif">{tr(it.caption, lang)}</figcaption>}</figure>}
+    <Spread left={it && <figure className="fade-in" key={i}><Img src={it.image} natural />{it.caption && <figcaption className="cap-note">{tr(it.caption, lang)}</figcaption>}</figure>}
       right={<div className="space-y-6">
-        <div className="relative overflow-x-auto custom-scrollbar pb-2 -mx-1">
-          <div className="relative flex min-w-max gap-1 px-1 pt-5">
-            <div className="absolute left-0 right-0 top-[27px] h-px bg-ink/25" />
-            {p.items.map((e, k) => (
-              <button key={k} onClick={() => setI(k)} className="relative flex flex-col items-center w-[74px] group">
-                <span className={`w-3.5 h-3.5 rotate-45 border-2 transition-all ${k === i ? 'scale-125' : 'group-hover:scale-110'}`} style={{ borderColor: colorOf(p.groups, e.group), background: k === i ? colorOf(p.groups, e.group) : 'var(--pp-bg)' }} />
-                <span className={`mt-2 font-display text-[11px] ${k === i ? 'text-accent font-bold' : 'text-ink/60'}`}>{tr(e.kicker, lang)}</span>
-              </button>
-            ))}
-          </div>
+        <div className="ribbon">
+          {p.items.map((e, k) => (
+            <button key={k} onClick={() => setI(k)} className={`ribbon-node ${k === i ? 'on' : ''}`}>
+              <span className="ribbon-dot" style={{ borderColor: colorOf(p.groups, e.group), background: k === i ? colorOf(p.groups, e.group) : 'var(--pp-bg)' }} />
+              <span className="ribbon-yr">{tr(e.kicker, lang)}</span>
+            </button>
+          ))}
         </div>
-        <Detail e={it && { ...it, image: undefined }} lang={lang} color={col} />
+        <div className="ribbon-head"><span>{tr(it?.kicker, lang)}</span></div>
+        <Detail e={it && { ...it, image: undefined, kicker: undefined }} lang={lang} color={col} />
         <Stepper i={i} n={p.items.length} set={setI} />
       </div>} />
   );
@@ -61,9 +59,7 @@ export const TimelineBlock: React.FC<BlockProps<TimelinePage>> = ({ p, lang, Spr
     </div>} right={detail} />
   );
 
-  return (
-    <Spread left={<div className="relative space-y-1"><div className="absolute left-[14px] top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-ink/30 to-transparent" />{p.items.map((_, k) => row(k))}</div>} right={detail} />
-  );
+  return <Spread left={<div className="tl-list">{p.items.map((_, k) => row(k))}</div>} right={detail} />;
 };
 
 export const CardsBlock: React.FC<BlockProps<CardsPage>> = ({ p, lang, Spread }) => {
@@ -108,12 +104,13 @@ export const CardsBlock: React.FC<BlockProps<CardsPage>> = ({ p, lang, Spread })
 
   return (
     <Spread left={<div className="space-y-4">{filter}
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2.5">
         {shown.map(({ e, k }) => (
-          <button key={k} onClick={() => { setSel(k); reveal(); }} className={`p-3 text-left border transition-all ${sel === k ? 'border-accent bg-accent/[.07] -translate-y-0.5 shadow' : 'border-ink/15 hover:border-ink/40 bg-paper/40'}`}>
-            <Icon id={e.icon} className="w-6 h-6" />
-            <b className="block mt-1 font-serif text-sm text-ink leading-snug">{tr(e.title, lang)}</b>
-            {e.short && <span className="block mt-0.5 text-[11px] leading-snug text-ink/55 font-serif">{tr(e.short, lang)}</span>}
+          <button key={k} onClick={() => { setSel(k); reveal(); }} className={`card-item ${sel === k ? 'on' : ''}`}>
+            <span className="card-bar" style={{ background: colorOf(p.cats, e.cat) }} />
+            <span className="card-ico"><Icon id={e.icon} className="w-6 h-6" /></span>
+            <b>{tr(e.title, lang)}</b>
+            {e.short && <span className="card-sub">{tr(e.short, lang)}</span>}
           </button>
         ))}
       </div></div>}

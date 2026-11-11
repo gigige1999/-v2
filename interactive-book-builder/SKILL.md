@@ -1,6 +1,6 @@
 ---
 name: interactive-book-builder
-description: 快速搭建"可以玩/可以翻的书"的 React+Vite 框架，两种类型：① 解谜书（文学交互书 / 锈湖式点击解谜读物：每章两关 = React 小游戏 + 书页引擎拾取/组合/特写/提示）；② 历史图文书（历史介绍 / 图鉴 / 编年史：每章若干跨页，8 种内页组件 × 20 种交互样式——时间线、分类卡片、分期对比、人物关系/家谱、地图点位/路线、热点图、正文释义、小测）。提供 3 种封面版式（经典烫金 / 纹章合拢书 / 徽章手抄本）× 11 种徽章 × 10 套封面配色 × 10 套纸张、目录与章节解锁、摘录收藏、WebAudio 音效与存档。当用户要把小说/故事/名著做成交互书或解谜书，或要把一段历史、一个文明、一个主题做成可翻阅的交互图文书/电子图鉴，或要给这类项目加章节、换主题/封面、写内页时使用。源自《百年孤独》《玫瑰战争》《Vikings》交互书。
+description: 快速搭建"可以玩/可以翻的书"的 React+Vite 框架，两种类型：① 解谜书（文学交互书 / 锈湖式点击解谜读物：每章两关 = React 小游戏 + 书页引擎拾取/组合/特写/提示）；② 历史图文书（历史介绍 / 图鉴 / 编年史：每章若干跨页，10 种内页组件 × 22 种交互样式——章扉页、本章纲要、时间线、分类卡片、分期对比、人物关系/家谱、地图点位/路线、热点图、正文释义、小测）。提供 3 种封面版式（经典烫金 / 纹章合拢书 / 徽章手抄本）× 11 种徽章 × 10 套封面配色 × 10 套纸张、目录与章节解锁、摘录收藏、WebAudio 音效与存档。当用户要把小说/故事/名著做成交互书或解谜书，或要把一段历史、一个文明、一个主题做成可翻阅的交互图文书/电子图鉴，或要给这类项目加章节、换主题/封面、写内页时使用。源自《百年孤独》《玫瑰战争》《Vikings》交互书。
 ---
 
 # Interactive Book Builder
@@ -30,7 +30,7 @@ description: 快速搭建"可以玩/可以翻的书"的 React+Vite 框架，两�
 
 ```bash
 S=<本 skill 目录>
-python3 $S/scripts/themes.py list                 # 看配色/纸张（gallery 可生成预览页 theme-gallery.html）
+python3 $S/scripts/themes.py list                 # 看配色/纸张；gallery 生成临时预览页，showcase/index.html 里也有色卡墙
 
 # 解谜书
 python3 $S/scripts/new_book.py <目录> --type puzzle --title 书名 [--en "English"] [--author 作者] \
@@ -49,7 +49,7 @@ cd <目录> && npm run dev     # http://localhost:3011
 生成后即可直接运行：
 
 - 解谜书：ch1 是完整示例（书房之夜），ch2..chN 是它的副本。
-- 历史书：ch1、ch2 是图文示例（虚构港城「灰港」，合起来覆盖全部 20 种组件样式），ch3..chN 是 ch1 的副本。
+- 历史书：ch1、ch2 是图文示例（虚构港城「灰港」，合起来覆盖 20 种常用样式；章扉页 `opener` 和纲要 `toc` 见 `references/blocks.md` 的写法），ch3..chN 是 ch1 的副本。
 - 历史书的封面文字、目录题记和引路人（「史官」）都换成了编年史口吻。
 
 之后的工作只在两个地方：
@@ -91,7 +91,7 @@ cd <目录> && npm run dev     # http://localhost:3011
 | `src/components/BookCover.tsx` + `emblems.tsx` | 3 种封面版式和徽章库（新增徽章见 `references/themes.md`） |
 | `src/components/TwoStageChapter.tsx` | 解谜章：第一关 → 翻页 → 第二关，第二关进度可恢复 |
 | `src/components/PagedChapter.tsx` | 图文章：跨页排版（手机端改为上下排列）、翻页栏、页码存档、✧ 提示 |
-| `src/blocks/*` | 8 种内页组件（`types.ts` 定义数据，`index.ts` 注册） |
+| `src/blocks/*` | 10 种内页组件（`types.ts` 定义数据，`index.ts` 注册） |
 | `src/engine/engine.js` + `engine.css` | 书页引擎（第二关全部交互） |
 | `src/engine/art-kit.js` | 版画框、共享 defs（排线、滤镜、渐变）、调色板、`hot()`、`tag()`、`spokes()` |
 | `src/engine/sound.js` | 合成音效 `Snd.fx.*`（不依赖音频文件） |
@@ -105,20 +105,20 @@ cd <目录> && npm run dev     # http://localhost:3011
 
 ## 案例与素材（`showcase/`）
 
-`showcase/index.html` 是给人读的图文说明：20 个真实跨页的截图、每页的字段写法、封面版式对比、手机端效果、两章素材清单。设计新书或向用户展示能力时先看它。
+`showcase/index.html` 是给人读的完整说明：主题与封面、全部组件的字段和用途、按类别整理的案例截图、素材清单。设计新书或向用户展示能力时先看它。
 
 `showcase/demo/` 下有两本可直接运行的完整工程（只有源码和 SVG 素材，不含 node_modules）：
 
 | 目录 | 内容 |
 |---|---|
-| `demo/chronicle/` | 图文书：灰港编年史，ch1 8 页 + ch2 12 页，覆盖全部 20 种样式（heraldic · crown · wine/vellum） |
+| `demo/chronicle/` | 图文书：灰港编年史，ch1 8 页 + ch2 12 页，覆盖 20 种常用样式（heraldic · crown · wine/vellum） |
 | `demo/mixed/` | 图文章 + 解谜章共存，emblem · longship · umber/linen |
 
 写新章节时，从 demo 里找到同 `kind·variant` 的页面，复制数据结构改内容，比从零写快得多。
 
 ## 参考文档（按需读取）
 
-- `references/blocks.md`：图文章的数据格式，8 种组件 × 20 种样式的字段表，选组件的思路，以及如何扩展新组件。写图文章时读。
+- `references/blocks.md`：图文章的数据格式，10 种组件 × 22 种样式的字段表，`facts` / `source` 等历史字段，选组件的思路，以及如何扩展新组件。写图文章时读。
 - `references/engine-api.md`：spec 字段、`g` 上下文、SVG `data-*` 属性、可用 CSS 类和音效。写 spec.js / art.js 时读。
 - `references/chapter-recipe.md`：解谜章的设计原则、两关的分工、美术约定、第一关常见玩法、验收清单。设计新解谜章时读。
 - `references/themes.md`：配色和纸张清单、3 种封面版式、徽章库、推荐搭配、CSS 变量，以及如何新增主题或徽章。
